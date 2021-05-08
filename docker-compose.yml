@@ -1,0 +1,27 @@
+version: "2"
+services:
+  mysql:
+    image: mysql:5.6
+    environment:
+      - MYSQL_ROOT_PASSWORD=verysecret
+      - MYSQL_PASSWORD=verysecret
+      - MYSQL_DATABASE=fitnation_development
+    ports:
+      - "3306:3306"
+    networks:
+      static-network:
+        ipv4_address: 182.20.128.1
+    volumes:
+      - fitnation-data:/var/lib/mysql
+    container_name: "fitnation-mysql"
+
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 182.20.0.0/16
+          #docker-compose v3+ do not use ip_range
+          ip_range: 182.28.5.0/24
+
+volumes:
+  fitnation-data:
