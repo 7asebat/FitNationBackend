@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_11_233156) do
+ActiveRecord::Schema.define(version: 2021_05_11_233702) do
 
   create_table "admins", charset: "latin1", force: :cascade do |t|
     t.bigint "user_auth_id", null: false
@@ -18,6 +18,15 @@ ActiveRecord::Schema.define(version: 2021_05_11_233156) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_auth_id"], name: "index_admins_on_user_auth_id"
+  end
+
+  create_table "trainers", charset: "latin1", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_auth_id", null: false
+    t.integer "country"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_auth_id"], name: "index_trainers_on_user_auth_id"
   end
 
   create_table "user_auths", charset: "latin1", force: :cascade do |t|
@@ -30,4 +39,5 @@ ActiveRecord::Schema.define(version: 2021_05_11_233156) do
   end
 
   add_foreign_key "admins", "user_auths"
+  add_foreign_key "trainers", "user_auths"
 end
