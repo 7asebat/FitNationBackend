@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  has_image: false
+  name: MyString
+  type: 1
+  nutrition_facts: 
+
+two:
+  has_image: false
+  name: MyString
+  type: 1
+  nutrition_facts: 
