@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_11_233702) do
+ActiveRecord::Schema.define(version: 2021_05_11_234136) do
 
   create_table "admins", charset: "latin1", force: :cascade do |t|
     t.bigint "user_auth_id", null: false
@@ -18,6 +18,34 @@ ActiveRecord::Schema.define(version: 2021_05_11_233702) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_auth_id"], name: "index_admins_on_user_auth_id"
+  end
+
+  create_table "clients", charset: "latin1", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_auth_id", null: false
+    t.integer "country"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_auth_id"], name: "index_clients_on_user_auth_id"
+  end
+
+  create_table "nutritionists", charset: "latin1", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_auth_id", null: false
+    t.integer "country"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_auth_id"], name: "index_nutritionists_on_user_auth_id"
+  end
+
+  create_table "trainer_client_messages", charset: "latin1", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "trainer_id", null: false
+    t.string "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_trainer_client_messages_on_client_id"
+    t.index ["trainer_id"], name: "index_trainer_client_messages_on_trainer_id"
   end
 
   create_table "trainers", charset: "latin1", force: :cascade do |t|
@@ -39,5 +67,9 @@ ActiveRecord::Schema.define(version: 2021_05_11_233702) do
   end
 
   add_foreign_key "admins", "user_auths"
+  add_foreign_key "clients", "user_auths"
+  add_foreign_key "nutritionists", "user_auths"
+  add_foreign_key "trainer_client_messages", "clients"
+  add_foreign_key "trainer_client_messages", "trainers"
   add_foreign_key "trainers", "user_auths"
 end
