@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_12_001824) do
+ActiveRecord::Schema.define(version: 2021_05_12_002257) do
 
   create_table "admins", charset: "latin1", force: :cascade do |t|
     t.bigint "user_auth_id", null: false
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 2021_05_12_001824) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_auth_id"], name: "index_clients_on_user_auth_id"
+  end
+
+  create_table "clients_exercise_instances", charset: "latin1", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.datetime "date"
+    t.bigint "workout_plan_exercise_id", null: false
+    t.integer "performance"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_clients_exercise_instances_on_client_id"
+    t.index ["workout_plan_exercise_id"], name: "index_clients_exercise_instances_on_workout_plan_exercise_id"
   end
 
   create_table "clients_weights_nutritions", charset: "latin1", force: :cascade do |t|
@@ -152,6 +163,8 @@ ActiveRecord::Schema.define(version: 2021_05_12_001824) do
 
   add_foreign_key "admins", "user_auths"
   add_foreign_key "clients", "user_auths"
+  add_foreign_key "clients_exercise_instances", "clients"
+  add_foreign_key "clients_exercise_instances", "workout_plan_exercises"
   add_foreign_key "clients_weights_nutritions", "clients"
   add_foreign_key "nutrition_specifications", "foods"
   add_foreign_key "nutrition_specifications", "recipes"
