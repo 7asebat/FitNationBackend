@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_12_001612) do
+ActiveRecord::Schema.define(version: 2021_05_12_001824) do
 
   create_table "admins", charset: "latin1", force: :cascade do |t|
     t.bigint "user_auth_id", null: false
@@ -27,6 +27,22 @@ ActiveRecord::Schema.define(version: 2021_05_12_001612) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_auth_id"], name: "index_clients_on_user_auth_id"
+  end
+
+  create_table "clients_weights_nutritions", charset: "latin1", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.datetime "date"
+    t.integer "weight"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_clients_weights_nutritions_on_client_id"
+  end
+
+  create_table "clients_weights_nutritions_nutrition_specifications", id: false, charset: "latin1", force: :cascade do |t|
+    t.bigint "clients_weights_nutrition_id", null: false
+    t.bigint "nutrition_specification_id", null: false
+    t.index ["clients_weights_nutrition_id", "nutrition_specification_id"], name: "index_client_weights_nutrition_nutrition_specs"
+    t.index ["nutrition_specification_id", "clients_weights_nutrition_id"], name: "index_nutrition_specs_client_weights_nutrition"
   end
 
   create_table "exercises", charset: "latin1", force: :cascade do |t|
@@ -136,6 +152,7 @@ ActiveRecord::Schema.define(version: 2021_05_12_001612) do
 
   add_foreign_key "admins", "user_auths"
   add_foreign_key "clients", "user_auths"
+  add_foreign_key "clients_weights_nutritions", "clients"
   add_foreign_key "nutrition_specifications", "foods"
   add_foreign_key "nutrition_specifications", "recipes"
   add_foreign_key "nutritionists", "user_auths"
