@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_12_000708) do
+ActiveRecord::Schema.define(version: 2021_05_12_000808) do
 
   create_table "admins", charset: "latin1", force: :cascade do |t|
     t.bigint "user_auth_id", null: false
@@ -101,6 +101,15 @@ ActiveRecord::Schema.define(version: 2021_05_12_000708) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "workout_plans", charset: "latin1", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "trainer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_workout_plans_on_client_id"
+    t.index ["trainer_id"], name: "index_workout_plans_on_trainer_id"
+  end
+
   add_foreign_key "admins", "user_auths"
   add_foreign_key "clients", "user_auths"
   add_foreign_key "nutritionists", "user_auths"
@@ -108,4 +117,6 @@ ActiveRecord::Schema.define(version: 2021_05_12_000708) do
   add_foreign_key "trainer_client_messages", "clients"
   add_foreign_key "trainer_client_messages", "trainers"
   add_foreign_key "trainers", "user_auths"
+  add_foreign_key "workout_plans", "clients"
+  add_foreign_key "workout_plans", "trainers"
 end
