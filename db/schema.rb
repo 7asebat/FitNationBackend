@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_11_235937) do
+ActiveRecord::Schema.define(version: 2021_05_12_000708) do
 
   create_table "admins", charset: "latin1", force: :cascade do |t|
     t.bigint "user_auth_id", null: false
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 2021_05_11_235937) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_auth_id"], name: "index_clients_on_user_auth_id"
+  end
+
+  create_table "exercises", charset: "latin1", force: :cascade do |t|
+    t.string "name"
+    t.text "tips"
+    t.integer "type"
+    t.json "meta_data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "foods", charset: "latin1", force: :cascade do |t|
