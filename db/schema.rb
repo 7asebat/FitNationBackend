@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_12_000808) do
+ActiveRecord::Schema.define(version: 2021_05_12_001612) do
 
   create_table "admins", charset: "latin1", force: :cascade do |t|
     t.bigint "user_auth_id", null: false
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(version: 2021_05_12_000808) do
     t.bigint "food_id", null: false
     t.index ["food_id"], name: "index_foods_recipes_on_food_id"
     t.index ["recipe_id"], name: "index_foods_recipes_on_recipe_id"
+  end
+
+  create_table "nutrition_specifications", charset: "latin1", force: :cascade do |t|
+    t.bigint "food_id", null: false
+    t.bigint "recipe_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["food_id"], name: "index_nutrition_specifications_on_food_id"
+    t.index ["recipe_id"], name: "index_nutrition_specifications_on_recipe_id"
   end
 
   create_table "nutritionists", charset: "latin1", force: :cascade do |t|
@@ -101,6 +111,20 @@ ActiveRecord::Schema.define(version: 2021_05_12_000808) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "workout_plan_exercises", charset: "latin1", force: :cascade do |t|
+    t.bigint "exercise_id", null: false
+    t.bigint "workout_plan_id", null: false
+    t.integer "day"
+    t.integer "order"
+    t.integer "duration"
+    t.integer "sets"
+    t.integer "reps"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["exercise_id"], name: "index_workout_plan_exercises_on_exercise_id"
+    t.index ["workout_plan_id"], name: "index_workout_plan_exercises_on_workout_plan_id"
+  end
+
   create_table "workout_plans", charset: "latin1", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "trainer_id", null: false
@@ -112,11 +136,15 @@ ActiveRecord::Schema.define(version: 2021_05_12_000808) do
 
   add_foreign_key "admins", "user_auths"
   add_foreign_key "clients", "user_auths"
+  add_foreign_key "nutrition_specifications", "foods"
+  add_foreign_key "nutrition_specifications", "recipes"
   add_foreign_key "nutritionists", "user_auths"
   add_foreign_key "recipes", "nutritionists"
   add_foreign_key "trainer_client_messages", "clients"
   add_foreign_key "trainer_client_messages", "trainers"
   add_foreign_key "trainers", "user_auths"
+  add_foreign_key "workout_plan_exercises", "exercises"
+  add_foreign_key "workout_plan_exercises", "workout_plans"
   add_foreign_key "workout_plans", "clients"
   add_foreign_key "workout_plans", "trainers"
 end
