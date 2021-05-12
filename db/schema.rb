@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_12_002257) do
+ActiveRecord::Schema.define(version: 2021_05_12_111438) do
 
   create_table "admins", charset: "latin1", force: :cascade do |t|
     t.bigint "user_auth_id", null: false
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 2021_05_12_002257) do
     t.datetime "reset_password_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "email"
   end
 
   create_table "workout_plan_exercises", charset: "latin1", force: :cascade do |t|
