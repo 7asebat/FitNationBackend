@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_11_234841) do
+ActiveRecord::Schema.define(version: 2021_05_11_235937) do
 
   create_table "admins", charset: "latin1", force: :cascade do |t|
     t.bigint "user_auth_id", null: false
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(version: 2021_05_11_234841) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "foods_recipes", id: false, charset: "latin1", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.bigint "food_id", null: false
+    t.index ["food_id"], name: "index_foods_recipes_on_food_id"
+    t.index ["recipe_id"], name: "index_foods_recipes_on_recipe_id"
+  end
+
   create_table "nutritionists", charset: "latin1", force: :cascade do |t|
     t.string "name"
     t.bigint "user_auth_id", null: false
@@ -45,6 +52,16 @@ ActiveRecord::Schema.define(version: 2021_05_11_234841) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_auth_id"], name: "index_nutritionists_on_user_auth_id"
+  end
+
+  create_table "recipes", charset: "latin1", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "photo"
+    t.bigint "nutritionist_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["nutritionist_id"], name: "index_recipes_on_nutritionist_id"
   end
 
   create_table "trainer_client_messages", charset: "latin1", force: :cascade do |t|
@@ -78,6 +95,7 @@ ActiveRecord::Schema.define(version: 2021_05_11_234841) do
   add_foreign_key "admins", "user_auths"
   add_foreign_key "clients", "user_auths"
   add_foreign_key "nutritionists", "user_auths"
+  add_foreign_key "recipes", "nutritionists"
   add_foreign_key "trainer_client_messages", "clients"
   add_foreign_key "trainer_client_messages", "trainers"
   add_foreign_key "trainers", "user_auths"
