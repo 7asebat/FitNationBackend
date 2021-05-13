@@ -1,4 +1,6 @@
 class AuthenticationController < ApplicationController
+  before_action :authenticate_any, only: [:current_user]
+
   def sign_in
     p = sign_in_params
     @user_auth = UserAuth.find_by(email: p[:email])
@@ -37,6 +39,15 @@ class AuthenticationController < ApplicationController
         ],
       }, status: :not_found
     end
+  end
+
+  def current_user
+    render json: {
+      "status": "success",
+      "data": {
+        "user": @user.decorate
+      }
+    }
   end
 
   private

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       post "sign_up", to: "trainers#sign_up"
     end
 
+    get "current_user", to: "authentication#current_user"
     post "sign_in", to: "authentication#sign_in"
   end
 
