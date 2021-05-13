@@ -78,4 +78,41 @@ class ApplicationController < ActionController::API
   def create_token(payload)
     JWT.encode(payload, secret)
   end
+
+
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    render json: { 
+      status: "error",
+      errors: [
+        {
+          title: "RecordNotFound",
+          message: "The requested resource is not found"
+        }
+      ]
+    }, status: :not_found
+  end
+  
+  rescue_from ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid do |exception|
+    render json: { 
+      status: "error",
+      errors: [
+        {
+          title: "InvalidRecord",
+          message: exception.record.errors
+        }
+      ]
+    }, status: :unprocessable_entity
+  end
+  
+  rescue_from ActionController::ParameterMissing do |exception|
+    render json: {
+      status: "error",
+      errors: [
+        {
+          title: "MissingParameter",
+          message: exception.message
+        }
+      ]
+    }, status: :bad_request
+  end
 end
