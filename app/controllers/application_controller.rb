@@ -34,11 +34,11 @@ class ApplicationController < ActionController::API
               "status": "error",
               "errors": [
                 {
-                  "name": "NotAuthorized",
+                  "name": "Unauthorized",
                   "message": "You are not authorized to view this"
                 }
               ]
-            }
+            }, status: :unauthorized
           end
         end
 
