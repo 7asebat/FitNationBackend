@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_12_111438) do
+ActiveRecord::Schema.define(version: 2021_05_13_194702) do
 
   create_table "admins", charset: "latin1", force: :cascade do |t|
     t.bigint "user_auth_id", null: false
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2021_05_12_111438) do
   create_table "exercises", charset: "latin1", force: :cascade do |t|
     t.string "name"
     t.text "tips"
-    t.integer "type"
+    t.integer "exercise_type"
     t.json "meta_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2021_05_12_111438) do
   create_table "foods", charset: "latin1", force: :cascade do |t|
     t.boolean "has_image"
     t.string "name"
-    t.integer "type"
+    t.integer "food_type"
     t.json "nutrition_facts"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
