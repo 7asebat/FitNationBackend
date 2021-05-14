@@ -3,6 +3,7 @@ class FoodsController < ApplicationController
 
     def index
         @foods = Food.all
+        puts @foods[0].id
         foods = @foods.map {|food| decorate(food)}
         render json: {status: 'success', data:{food:foods}},status: :ok
     end
@@ -54,11 +55,11 @@ class FoodsController < ApplicationController
    
     def decorate(food)
         {
-            id: @food.id,
-            has_image: @food.has_image,
-            name: @food.name,
-            nutrition_facts: @food.nutrition_facts,
-            food_type: @food.food_type
+            id: food.id,
+            has_image: food.has_image,
+            name: food.name,
+            nutrition_facts: food.nutrition_facts,
+            food_type: food.food_type
         }
     end
 end
