@@ -2,6 +2,12 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :exercises
   resources :foods
+  resources :recipes
+
+  scope :recipes do
+    patch ":id/add_food", to: "recipes#add_food"
+    delete ":id/remove_food", to: "recipes#remove_food"
+  end
 
   scope :authentication do
     scope :clients do
