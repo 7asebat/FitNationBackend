@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_13_194702) do
+ActiveRecord::Schema.define(version: 2021_05_15_090101) do
 
   create_table "admins", charset: "latin1", force: :cascade do |t|
     t.bigint "user_auth_id", null: false
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2021_05_13_194702) do
     t.bigint "recipe_id", null: false
     t.bigint "food_id", null: false
     t.index ["food_id"], name: "index_foods_recipes_on_food_id"
+    t.index ["recipe_id", "food_id"], name: "index_foods_recipes_on_recipe_id_and_food_id", unique: true
     t.index ["recipe_id"], name: "index_foods_recipes_on_recipe_id"
   end
 
