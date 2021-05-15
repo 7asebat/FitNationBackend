@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :exercises
   resources :foods
   resources :recipes
-
+  resources :nutrition_specifications
   scope :recipes do
     patch ":id/add_food", to: "recipes#add_food"
     delete ":id/remove_food", to: "recipes#remove_food"
