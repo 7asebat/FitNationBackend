@@ -20,5 +20,9 @@ Rails.application.routes.draw do
     post "sign_in", to: "authentication#sign_in"
   end
 
+  scope :workout_plans do
+    post "/", to: "workout_plans#create"
+  end
+
   match "*unmatched_route", :to => "errors#routing", via: [:get, :post, :delete, :put, :patch]
 end
