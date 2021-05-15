@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
-  before_action :find_recipe, only: [:show, :update, :destroy, :add_food]
+  before_action :find_recipe, only: [:show, :update, :destroy, :add_food, :remove_food]
+  before_action :authenticate_nutritionist, only: [:create, :destroy, :update, :add_food, :remove_food]
 
   def index
     @recipes = Recipe.all
@@ -8,12 +9,13 @@ class RecipesController < ApplicationController
   end
 
   def show
-      render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
+    render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
   end
 
   def create
     ActiveRecord::Base.transaction do
       @recipe = Recipe.new(recipe_params)
+      @recipe.nutritionist_id = @user.id
       if @recipe.save
         insert_joined_recipe_food
         render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :created
@@ -24,25 +26,41 @@ class RecipesController < ApplicationController
   end
 
   def update
+    if !validate_nutritionist_recipe(@recipe)
+      render_unauthorized_error
+    else
       @recipe.update(recipe_update_params)
       render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
+    end
   end
 
   def destroy
+    if !validate_nutritionist_recipe(@recipe)
+      render_unauthorized_error
+    else
       @recipe.destroy
       render json: { status: "success", message: "Recipe deleted successfully" }, status: :ok
+    end
   end
 
   def add_food
-    insert_joined_recipe_food
-    @recipe = Recipe.find(params[:id])
-    render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
+    if !validate_nutritionist_recipe(@recipe)
+      render_unauthorized_error
+    else
+      insert_joined_recipe_food
+      @recipe = Recipe.find(params[:id])
+      render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
+    end
   end
 
   def remove_food
-    delete_joined_recipe_food(params[:recipe][:foods])
-    @recipe = Recipe.find(params[:id])
-    render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
+    if !validate_nutritionist_recipe(@recipe)
+      render_unauthorized_error
+    else
+      delete_joined_recipe_food(params[:recipe][:foods])
+      @recipe = Recipe.find(params[:id])
+      render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
+    end
   end
 
   def get_recipes_nutritionist
@@ -56,7 +74,7 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    request.parameters[:recipe].slice(:name, :description, :photo, :nutritionist_id)
+    request.parameters[:recipe].slice(:name, :description, :photo)
   end
 
   def find_recipe
@@ -93,6 +111,19 @@ class RecipesController < ApplicationController
     query += ";"
 
     ActiveRecord::Base::connection.execute(query)
+  end
+
+  def validate_nutritionist_recipe(recipe)
+    @user.id == recipe.nutritionist_id
+  end
+
+  def render_unauthorized_error
+    render json: { status: "error", errors: [
+             {
+               name: "Unauthorized",
+               message: "This recipe doesn't belong to the logged in nutritionist.",
+             },
+           ] }, status: :unauthorized
   end
 
   def decorate(recipe)
