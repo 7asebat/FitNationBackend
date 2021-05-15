@@ -8,11 +8,7 @@ class RecipesController < ApplicationController
   end
 
   def show
-    if @recipe
       render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
-    else
-      render json: { status: "error", error: "No recipe was found with this id." }, status: :not_found
-    end
   end
 
   def create
@@ -28,21 +24,13 @@ class RecipesController < ApplicationController
   end
 
   def update
-    if @recipe
       @recipe.update(recipe_update_params)
       render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
-    else
-      render json: { status: "error", error: "Unable to update recipe." }, status: :bad_request
-    end
   end
 
   def destroy
-    if @recipe
       @recipe.destroy
       render json: { status: "success", message: "Recipe deleted successfully" }, status: :ok
-    else
-      render json: { status: "error", error: "No recipe was found with this id" }, status: :not_found
-    end
   end
 
   def add_food
@@ -55,6 +43,14 @@ class RecipesController < ApplicationController
     delete_joined_recipe_food(params[:recipe][:foods])
     @recipe = Recipe.find(params[:id])
     render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
+  end
+
+  def get_recipes_nutritionist
+    nutritionist_id = params[:nutritionist_id]
+    nutritionist = Nutritionist.find(nutritionist_id)
+    @recipes = Recipe.where(nutritionist_id: nutritionist_id)
+    recipes = @recipes.map { |recipe| decorate(recipe) }
+    render json: { status: "success", data: { recipes: recipes } }, status: :ok
   end
 
   private

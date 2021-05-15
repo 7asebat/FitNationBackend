@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   scope :recipes do
     patch ":id/add_food", to: "recipes#add_food"
     delete ":id/remove_food", to: "recipes#remove_food"
+    get "nutritionist/:nutritionist_id", to: "recipes#get_recipes_nutritionist"
   end
 
   scope :authentication do
