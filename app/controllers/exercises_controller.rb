@@ -8,11 +8,7 @@ class ExercisesController < ApplicationController
   end
 
   def show
-    if @exercise
       render json: { status: "success", data: { exercise: decorate(@exercise) } }, status: :ok
-    else
-      render json: { status: "error", error: "No exercise was found with this id." }, status: :not_found
-    end
   end
 
   def create
@@ -25,21 +21,13 @@ class ExercisesController < ApplicationController
   end
 
   def update
-    if @exercise
       @exercise.update(exercise_params)
       render json: { status: "success", data: { exercise: decorate(@exercise) } }, statu: :ok
-    else
-      render json: { status: "error", error: "No exercise was found with this id." }, status: :not_found
-    end
   end
 
   def destroy
-    if @exercise
       @exercise.destroy
       render json: { status: "success", message: "Exercise deleted successfully." }, status: :ok
-    else
-      render json: { status: "error", error: "No exercise was found with this id." }, status: :not_found
-    end
   end
 
   private
