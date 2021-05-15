@@ -8,11 +8,7 @@ class FoodsController < ApplicationController
   end
 
   def show
-    if @food
       render json: { status: "success", data: { food: decorate(@food) } }, status: :ok
-    else
-      render json: { status: "error", error: "No food was found with this id." }, status: :not_found
-    end
   end
 
   def create
@@ -25,21 +21,13 @@ class FoodsController < ApplicationController
   end
 
   def update
-    if @food
       @food.update(food_params)
       render json: { status: "success", data: { food: decorate(@food) } }, statu: :ok
-    else
-      render json: { status: "error", error: "No food was found with this id." }, status: :not_found
-    end
   end
 
   def destroy
-    if @food
       @food.destroy
       render json: { status: "success", message: "Food deleted successfully." }, status: :ok
-    else
-      render json: { status: "error", error: "No food was found with this id." }, status: :not_found
-    end
   end
 
   private
