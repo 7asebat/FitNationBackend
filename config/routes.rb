@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   scope :workout_plans do
     post "/", to: "workout_plans#create"
+    get "/", to: "workout_plans#index"
   end
 
   match "*unmatched_route", :to => "errors#routing", via: [:get, :post, :delete, :put, :patch]

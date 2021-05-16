@@ -1,5 +1,5 @@
 class WorkoutPlansController < ApplicationController
-  before_action :authenticate_client, only: [:create]
+  before_action :authenticate_client, only: [:create, :index]
 
   def create
     days = create_params
@@ -19,6 +19,12 @@ class WorkoutPlansController < ApplicationController
         end
       end
     end
+    render status: :created
+  end
+
+  def index
+    @workout_plans = @user.workout_plans.includes(:client, :trainer).all
+    render status: :ok
   end
 
   private
