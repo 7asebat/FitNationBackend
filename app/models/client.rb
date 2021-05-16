@@ -5,4 +5,8 @@ class Client < ApplicationRecord
   has_many :clients_exercise_instances
   has_many :workout_plans
 
+
+  def create_workout_plan(client_id: )
+    WorkoutPlan.create!(client: self)
+  end
 end

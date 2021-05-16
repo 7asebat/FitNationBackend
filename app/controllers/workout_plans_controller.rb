@@ -1,15 +1,20 @@
 class WorkoutPlansController < ApplicationController
-  before_action :authenticate_client, only: [:create, :index]
+  before_action only: [:create, :index] do
+    authenticate(roles: [UserAuth.roles[:client], UserAuth.roles[:trainer]])
+  end
 
   def create
-    days = create_params
 
+    p = create_params
+    days = p[:days]
+    client_id = p[:client_id]
     ActiveRecord::Base.transaction do
-      workout_plan = WorkoutPlan.create!(client: @user)
+      @workout_plan = @user.create_workout_plan(client_id: client_id)
+
       days.each do |day, v_d|
         exercises = v_d[:exercises]
         exercises.each do |exercise_obj|
-          workout_plan.workout_plan_exercises.create!(
+          @workout_plan.workout_plan_exercises.create!(
             day: day,
             exercise_id: exercise_obj[:exercise_id],
             sets: exercise_obj[:set],
@@ -19,6 +24,7 @@ class WorkoutPlansController < ApplicationController
         end
       end
     end
+
     render status: :created
   end
 
@@ -30,6 +36,6 @@ class WorkoutPlansController < ApplicationController
   private
 
   def create_params
-    params.require("days")
+    params
   end
 end
