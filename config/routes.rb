@@ -4,13 +4,14 @@ Rails.application.routes.draw do
   resources :foods
   resources :recipes
   resources :nutrition_specifications
-  resources :client_weight_nutritions
 
   scope :client_weight_nutritions do
     patch ":id/add_spec", to: "client_weight_nutritions#add_spec"
-    delete ":id/remove_spec", to: "client_weight_nutritions#remove_spec"
-
+    delete ":id/remove_spec/:nspec_id", to: "client_weight_nutritions#remove_spec"
+    get "/client", to: "client_weight_nutritions#getAllClientWeightNutrition"
   end
+  resources :client_weight_nutritions
+
   scope :recipes do
     patch ":id/add_food", to: "recipes#add_food"
     delete ":id/remove_food", to: "recipes#remove_food"

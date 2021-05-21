@@ -1,9 +1,16 @@
 class ClientWeightNutritionsController < ApplicationController
-  before_action :authenticate_client, only: [:create, :destroy, :update, :add_spec, :remove_spec]
+  before_action :authenticate_client, only: [:create, :destroy, :update, :add_spec, :remove_spec, :getAllClientWeightNutrition]
   before_action :find_client_w_n, only: [:show, :update, :destroy, :add_spec, :remove_spec]
 
   def index
     @client_w_ns = ClientsWeightsNutrition.all
+    client_w_ns = @client_w_ns.map { |el| decorate(el) }
+    render json: { status: "success", data: { client_weight_nutritions: client_w_ns } }, status: :ok
+  end
+
+  def getAllClientWeightNutrition
+    puts "HEYYYYYYYY" , @user.id
+    @client_w_ns = ClientsWeightsNutrition.where(client_id: @user.id)
     client_w_ns = @client_w_ns.map { |el| decorate(el) }
     render json: { status: "success", data: { client_weight_nutritions: client_w_ns } }, status: :ok
   end
@@ -58,11 +65,6 @@ class ClientWeightNutritionsController < ApplicationController
   def add_spec
     if @user.id == @client_w_n.client_id
       ActiveRecord::Base.transaction do
-        if params[:nutrition_specification].has_key?(:recipe_id)
-          @recipe = Recipe.find(params[:nutrition_specification][:recipe_id])
-        else
-          @food = Food.find(params[:nutrition_specification][:food_id])
-        end
         @n_spec = NutritionSpecification.new(n_spec_params)
         if @n_spec.save
           insert_nspec
@@ -78,7 +80,7 @@ class ClientWeightNutritionsController < ApplicationController
   def remove_spec
     if @user.id == @client_w_n.client_id
       ActiveRecord::Base.transaction do
-        @n_spec = NutritionSpecification.find(params[:id])
+        @n_spec = NutritionSpecification.find(params[:nspec_id])
         @n_spec.destroy
         find_client_w_n
         render json: { status: "success", data: { client_weight_nutrition: decorate(@client_w_n) } }, status: :ok
