@@ -1,6 +1,6 @@
 class NutritionSpecificationsController < ApplicationController
   before_action :find_nutrition_specification, only: [:show, :update, :destroy]
-  before_action :authenticate_nutritionist, only: [:create, :destroy, :update]
+  before_action :authenticate_client, only: [:create, :destroy, :update]
 
   def index
     @n_specs = NutritionSpecification.all
