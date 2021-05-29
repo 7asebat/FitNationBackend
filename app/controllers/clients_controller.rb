@@ -7,15 +7,9 @@ class ClientsController < ApplicationController
     end
 
     payload = { id: @user_auth.id, role: role }
-    token = create_token(payload)
+    @token = create_token(payload)
 
-    render json: {
-      status: "success",
-      data: {
-        user: @user.decorate,
-        token: token,
-      },
-    }, status: :created
+    render status: :created
   end
   
   private

@@ -3,13 +3,7 @@ class Trainer < ApplicationRecord
   has_many :trainer_client_messages
   has_many :workout_plans
 
-  def decorate
-    return {
-      id: self.id,
-      name: self.name,
-      country: self.country,
-      email: self.user_auth.email,
-      role: self.user_auth.role
-    }
+  def create_workout_plan(client_id:)
+    WorkoutPlan.create!(trainer: self, client_id: client_id)
   end
 end
