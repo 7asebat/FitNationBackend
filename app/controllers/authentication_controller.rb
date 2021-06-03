@@ -9,45 +9,18 @@ class AuthenticationController < ApplicationController
 
       if correct_auth
         payload = { id: @user_auth.id }
-        token = create_token(payload)
-        render json: {
-          status: "success",
-          data: {
-            user: @user_auth.fetch_user.decorate,
-            token: token,
-          },
-        }
+        @token = create_token(payload)
+        render status: :ok
       else
-        render json: {
-          "status": "error",
-          "errors": [
-            {
-              "name": "IncorrectCredentials",
-              "message": "The credentials you entered are incorrect",
-            },
-          ],
-        }, status: :unauthorized
+        render 'errors/incorrect_credentials', status: :unauthorized
       end
     else
-      render json: {
-        "status": "error",
-        "errors": [
-          {
-            "name": "UserNotFound",
-            "message": "No user was found with this email",
-          },
-        ],
-      }, status: :not_found
+      render 'errors/user_not_found', status: :not_found
     end
   end
 
   def current_user
-    render json: {
-      "status": "success",
-      "data": {
-        "user": @user.decorate
-      }
-    }
+    render status: :ok
   end
 
   private

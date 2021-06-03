@@ -6,13 +6,7 @@ class Client < ApplicationRecord
   has_many :workout_plans
 
 
-  def decorate
-    return {
-      id: self.id,
-      name: self.name,
-      country: self.country,
-      email: self.user_auth.email,
-      role: self.user_auth.role
-    }
+  def create_workout_plan(client_id: )
+    WorkoutPlan.create!(client: self)
   end
 end
