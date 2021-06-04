@@ -8,7 +8,7 @@ class ClientDecorator < Draper::Decorator
       country: country,
       email: user_auth&.email,
       role: user_auth&.role,
-      has_avatar: avatar.attached?
+      avatar: avatar.url
     }
   end
 end

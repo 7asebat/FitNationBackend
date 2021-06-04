@@ -7,7 +7,8 @@ class NutritionistDecorator < Draper::Decorator
       name: name,
       country: country,
       email: user_auth&.email,
-      role: user_auth&.role
+      role: user_auth&.role,
+      avatar: avatar.url
     }
   end
 end
