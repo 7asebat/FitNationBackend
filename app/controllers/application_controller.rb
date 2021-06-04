@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::API
+  before_action do
+    ActiveStorage::Current.host = request.base_url
+  end
+
   def authenticate_client
     authenticate(roles: [UserAuth.roles[:client]])
   end

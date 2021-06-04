@@ -3,18 +3,17 @@ class FoodsController < ApplicationController
 
   def index
     @foods = Food.all
-    foods = @foods.map { |food| decorate(food) }
-    render json: { status: "success", data: { food: foods } }, status: :ok
+    render json: { status: "success", data: { food: @foods.decorate.as_json } }, status: :ok
   end
 
   def show
-      render json: { status: "success", data: { food: decorate(@food) } }, status: :ok
+      render json: { status: "success", data: { food: @food.decorate.as_json } }, status: :ok
   end
 
   def create
     @food = Food.new(food_params)
     if @food.save
-      render json: { status: "success", data: { food: decorate(@food) } }, status: :created
+      render json: { status: "success", data: { food: @food.decorate.as_json } }, status: :created
     else
       render json: { status: "error", error: "Unable to create food." }, status: :bad_request
     end
@@ -22,7 +21,7 @@ class FoodsController < ApplicationController
 
   def update
       @food.update(food_params)
-      render json: { status: "success", data: { food: decorate(@food) } }, statu: :ok
+      render json: { status: "success", data: { food: @food.decorate.as_json } }, statu: :ok
   end
 
   def destroy
@@ -33,20 +32,10 @@ class FoodsController < ApplicationController
   private
 
   def food_params
-    request.parameters[:food].slice(:has_image, :name, :nutrition_facts, :food_type)
+    request.parameters.slice(:has_image, :name, :nutrition_facts, :food_type, :image)
   end
 
   def find_food
     @food = Food.find(params[:id])
-  end
-
-  def decorate(food)
-    {
-          id: food.id,
-          has_image: food.has_image,
-          name: food.name,
-          nutrition_facts: food.nutrition_facts,
-          food_type: food.food_type,
-        }
   end
 end

@@ -40,5 +40,7 @@ Rails.application.routes.draw do
     get "/", to: "workout_plans#index"
   end
 
-  match "*unmatched_route", :to => "errors#routing", via: [:get, :post, :delete, :put, :patch]
+  match "*unmatched_route", :to => "errors#routing", via: [:get, :post, :delete, :put, :patch], constraints: lambda{ |req|
+    req.path.exclude? 'rails/active_storage'
+  }
 end
