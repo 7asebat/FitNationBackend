@@ -9,7 +9,6 @@ class ClientWeightNutritionsController < ApplicationController
   end
 
   def getAllClientWeightNutrition
-    puts "HEYYYYYYYY" , @user.id
     @client_w_ns = ClientsWeightsNutrition.where(client_id: @user.id)
     client_w_ns = @client_w_ns.map { |el| decorate(el) }
     render json: { status: "success", data: { client_weight_nutritions: client_w_ns } }, status: :ok
