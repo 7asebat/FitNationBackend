@@ -1,5 +1,8 @@
 class WorkoutPlansController < ApplicationController
-  before_action only: [:create, :index] do
+
+  include Paginateable
+
+  before_action only: [:create, :me_index] do
     authenticate(roles: [UserAuth.roles[:client], UserAuth.roles[:trainer]])
   end
 
@@ -33,6 +36,16 @@ class WorkoutPlansController < ApplicationController
   end
 
   def index
+    @limit, @page, @offset = pagination_params
+
+    @records = WorkoutPlan.where.not(trainer_id: nil).where(client_id: nil).limit(@limit).offset(@offset).all.decorate.as_json
+    @total = WorkoutPlan.all.count
+    @count = @records.count
+
+    render status: :ok
+  end
+
+  def me_index
     @workout_plans = @user.workout_plans.includes(:client, :trainer).all
     render status: :ok
   end

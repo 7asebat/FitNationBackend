@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   end
 
  
+    end
 
   scope :workout_plans do
     post "/", to: "workout_plans#create"
