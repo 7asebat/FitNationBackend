@@ -25,6 +25,8 @@ class UserAuthController < ApplicationController
     end
 
     @records = userModel.limit(@limit).offset(@offset).all.decorate.as_json
+    @total = userModel.all.count
+    @count = @records.count
 
     render status: :ok
   end
