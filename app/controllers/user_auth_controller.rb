@@ -8,10 +8,6 @@ class UserAuthController < ApplicationController
 
     throw StandardError if role.blank?
 
-    puts UserAuth.roles[:client].to_s
-    puts role
-    puts role == UserAuth.roles[:client]
-
     if role == UserAuth.roles[:client].to_s
       userModel = Client
     elsif role == UserAuth.roles[:nutritionist].to_s
