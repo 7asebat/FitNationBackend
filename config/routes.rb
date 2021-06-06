@@ -46,6 +46,18 @@ Rails.application.routes.draw do
     end
   end
 
+  scope :clients do
+    delete "/:id", to: "clients#delete"
+  end
+
+  scope :trainers do
+    delete "/:id", to: "trainers#delete"
+  end
+
+  scope :nutritionists do
+    delete "/:id", to: "nutritionists#delete"
+  end
+
   match "*unmatched_route", :to => "errors#routing", via: [:get, :post, :delete, :put, :patch], constraints: lambda{ |req|
     req.path.exclude? 'rails/active_storage'
   }
