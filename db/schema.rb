@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_06_013047) do
+ActiveRecord::Schema.define(version: 2021_06_06_215835) do
 
   create_table "active_storage_attachments", charset: "latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -64,7 +64,9 @@ ActiveRecord::Schema.define(version: 2021_06_06_013047) do
     t.integer "performance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "exercise_id", null: false
     t.index ["client_id"], name: "index_clients_exercise_instances_on_client_id"
+    t.index ["exercise_id"], name: "index_clients_exercise_instances_on_exercise_id"
     t.index ["workout_plan_exercise_id"], name: "index_clients_exercise_instances_on_workout_plan_exercise_id"
   end
 
@@ -199,6 +201,7 @@ ActiveRecord::Schema.define(version: 2021_06_06_013047) do
   add_foreign_key "admins", "user_auths"
   add_foreign_key "clients", "user_auths"
   add_foreign_key "clients_exercise_instances", "clients"
+  add_foreign_key "clients_exercise_instances", "exercises"
   add_foreign_key "clients_exercise_instances", "workout_plan_exercises"
   add_foreign_key "clients_weights_nutritions", "clients"
   add_foreign_key "nutrition_specifications", "foods"
