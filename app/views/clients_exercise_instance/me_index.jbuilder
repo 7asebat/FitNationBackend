@@ -1,0 +1,1 @@
+json.client_exercise_instances @client_exercise_instances
