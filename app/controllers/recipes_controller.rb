@@ -4,12 +4,11 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = Recipe.all
-    recipes = @recipes.map { |recipe| decorate(recipe) }
-    render json: { status: "success", data: { recipes: recipes } }, status: :ok
+    render json: { status: "success", data: { recipes: @recipes.decorate.as_json } }, status: :ok
   end
 
   def show
-    render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
+    render json: { status: "success", data: { recipe: @recipe.decorate.as_json} }, status: :ok
   end
 
   def create
@@ -18,7 +17,7 @@ class RecipesController < ApplicationController
       @recipe.nutritionist_id = @user.id
       if @recipe.save
         insert_joined_recipe_food
-        render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :created
+        render json: { status: "success", data: { recipe: @recipe.decorate.as_json } }, status: :created
       else
         render json: { status: "error", error: "Unable to create recipe." }, status: :bad_request
       end
@@ -30,7 +29,7 @@ class RecipesController < ApplicationController
       render_unauthorized_error
     else
       @recipe.update(recipe_update_params)
-      render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
+      render json: { status: "success", data: { recipe: @recipe.decorate.as_json } }, status: :ok
     end
   end
 
@@ -49,7 +48,7 @@ class RecipesController < ApplicationController
     else
       insert_joined_recipe_food
       @recipe = Recipe.find(params[:id])
-      render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
+      render json: { status: "success", data: { recipe: @recipe.decorate.as_json } }, status: :ok
     end
   end
 
@@ -59,7 +58,7 @@ class RecipesController < ApplicationController
     else
       delete_joined_recipe_food(params[:recipe][:foods])
       @recipe = Recipe.find(params[:id])
-      render json: { status: "success", data: { recipe: decorate(@recipe) } }, status: :ok
+      render json: { status: "success", data: { recipe: @recipe.decorate.as_json } }, status: :ok
     end
   end
 

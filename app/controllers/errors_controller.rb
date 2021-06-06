@@ -14,6 +14,6 @@ class ErrorsController < ApplicationController
           "message": "This route is not found"
         }
       ]
-    }
+    },status: :not_found
   end
 end
