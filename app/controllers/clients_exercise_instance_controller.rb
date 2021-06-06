@@ -2,18 +2,24 @@ class ClientsExerciseInstanceController < ApplicationController
   before_action :authenticate_client
 
   def create
-    params = create_params
+    p = create_params
 
     @client_exercise_instance = ClientsExerciseInstance.create!(client: @user,
-                                                                date: params[:date],
-                                                                performance: params[:performance],
-                                                                exercise_id: params[:exercise_id],
-                                                                workout_plan_exercise_id: params[:workout_plan_exercise_id],
-                                                                sets: params[:sets],
-                                                                reps: params[:reps],
-                                                                duration: params[:duration]
+                                                                date: p[:date],
+                                                                performance: p[:performance],
+                                                                exercise_id: p[:exercise_id],
+                                                                workout_plan_exercise_id: p[:workout_plan_exercise_id],
+                                                                sets: p[:sets],
+                                                                reps: p[:reps],
+                                                                duration: p[:duration]
                                                               )
     render status: :created                                                                
+  end
+
+  def me_index
+    p = me_index_params
+    @date = p[:date].split('T')[0]
+    @client_exercise_instances = ClientsExerciseInstance.where("DATE(`date`) = ?", @date).where(client: @user).all
   end
 
   def create_params
@@ -31,6 +37,14 @@ class ClientsExerciseInstanceController < ApplicationController
 
     if params[:sets].blank? and params[:reps].blank? and params[:duration].blank?
       raise ActionController::BadRequest.new(), "Please add sets and reps or duration"
+    end
+
+    params
+  end
+
+  def me_index_params
+    if params[:date].blank?
+      raise ActionController::BadRequest.new(), "You must provide a date"
     end
 
     params
