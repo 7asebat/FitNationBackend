@@ -41,7 +41,11 @@ Rails.application.routes.draw do
   end
 
  
+  scope :me do
+    scope :workout_plans do
+      get "/", to: "workout_plans#me_index"
     end
+  end
 
   scope :workout_plans do
     post "/", to: "workout_plans#create"
@@ -56,6 +60,10 @@ Rails.application.routes.draw do
 
   scope :clients do
     delete "/:id", to: "clients#delete"
+
+    scope :exercise_instance do
+      post "/", to: "clients_exercise_instance#create"
+    end
   end
 
   scope :trainers do

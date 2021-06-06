@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_06_222214) do
+ActiveRecord::Schema.define(version: 2021_06_06_223439) do
 
   create_table "active_storage_attachments", charset: "latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -60,11 +60,11 @@ ActiveRecord::Schema.define(version: 2021_06_06_222214) do
   create_table "clients_exercise_instances", charset: "latin1", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.datetime "date"
-    t.bigint "workout_plan_exercise_id", null: false
+    t.bigint "workout_plan_exercise_id"
     t.integer "performance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "exercise_id", null: false
+    t.bigint "exercise_id"
     t.integer "sets"
     t.integer "reps"
     t.integer "duration"
