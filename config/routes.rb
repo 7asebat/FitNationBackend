@@ -58,6 +58,10 @@ Rails.application.routes.draw do
     delete "/:id", to: "nutritionists#delete"
   end
 
+  scope :admins do
+    get "/dashboard", to: "admins#dashboard"
+  end
+
   match "*unmatched_route", :to => "errors#routing", via: [:get, :post, :delete, :put, :patch], constraints: lambda{ |req|
     req.path.exclude? 'rails/active_storage'
   }
