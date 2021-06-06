@@ -40,6 +40,12 @@ Rails.application.routes.draw do
     get "/", to: "workout_plans#index"
   end
 
+  scope :admin do
+    scope :users do
+      get "/", to: "user_auth#index"
+    end
+  end
+
   match "*unmatched_route", :to => "errors#routing", via: [:get, :post, :delete, :put, :patch], constraints: lambda{ |req|
     req.path.exclude? 'rails/active_storage'
   }
