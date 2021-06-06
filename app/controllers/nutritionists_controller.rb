@@ -11,6 +11,13 @@ class NutritionistsController < ApplicationController
 
     render status: :created
   end
+
+  def delete
+    ActiveRecord::Base.transaction do
+      id = params[:id]
+      Nutritionist.destroy(id)
+    end
+  end
   
   private
 

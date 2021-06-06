@@ -11,6 +11,13 @@ class TrainersController < ApplicationController
 
     render status: :created
   end
+
+  def delete
+    ActiveRecord::Base.transaction do
+      id = params[:id]
+      Trainer.destroy(id)
+    end
+  end
   
   private
 

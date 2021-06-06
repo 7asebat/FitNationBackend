@@ -11,6 +11,13 @@ class ClientsController < ApplicationController
 
     render status: :created
   end
+
+  def delete
+    ActiveRecord::Base.transaction do
+      id = params[:id]
+      Client.destroy(id)
+    end
+  end
   
   private
 

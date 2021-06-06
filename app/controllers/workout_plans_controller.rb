@@ -8,8 +8,12 @@ class WorkoutPlansController < ApplicationController
     p = create_params
     days = p[:days]
     client_id = p[:client_id]
+    level = p[:level]
+    name = p[:name]
+    requires_equipment = p[:requires_equipment]
+
     ActiveRecord::Base.transaction do
-      @workout_plan = @user.create_workout_plan(client_id: client_id)
+      @workout_plan = @user.create_workout_plan(client_id: client_id, level: level, name: name, requires_equipment: requires_equipment)
 
       days.each do |day, v_d|
         exercises = v_d[:exercises]
