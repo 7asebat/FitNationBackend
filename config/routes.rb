@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  scope :exercises do
+    get "muscle_group", to:"exercises#getExerciseByMuscleGroup"
+  end
   resources :exercises
   resources :foods
   resources :recipes
@@ -18,6 +21,8 @@ Rails.application.routes.draw do
     get "nutritionist/:nutritionist_id", to: "recipes#get_recipes_nutritionist"
   end
 
+  
+
   scope :authentication do
     scope :clients do
       post "sign_up", to: "clients#sign_up"
@@ -34,6 +39,8 @@ Rails.application.routes.draw do
     get "current_user", to: "authentication#current_user"
     post "sign_in", to: "authentication#sign_in"
   end
+
+ 
 
   scope :workout_plans do
     post "/", to: "workout_plans#create"

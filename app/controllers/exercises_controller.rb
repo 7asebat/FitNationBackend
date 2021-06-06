@@ -8,7 +8,7 @@ class ExercisesController < ApplicationController
   end
 
   def show
-      render json: { status: "success", data: { exercise: decorate(@exercise) } }, status: :ok
+    render json: { status: "success", data: { exercise: decorate(@exercise) } }, status: :ok
   end
 
   def create
@@ -21,19 +21,26 @@ class ExercisesController < ApplicationController
   end
 
   def update
-      @exercise.update(exercise_params)
-      render json: { status: "success", data: { exercise: decorate(@exercise) } }, statu: :ok
+    @exercise.update(exercise_params)
+    render json: { status: "success", data: { exercise: decorate(@exercise) } }, statu: :ok
   end
 
   def destroy
-      @exercise.destroy
-      render json: { status: "success", message: "Exercise deleted successfully." }, status: :ok
+    @exercise.destroy
+    render json: { status: "success", message: "Exercise deleted successfully." }, status: :ok
+  end
+
+  def getExerciseByMuscleGroup
+    puts "(meta_data->'muscle_groups')::jsonb @> '#{params[:muscle_group]}'"
+    @exercises = Exercise.where("JSON_CONTAINS(meta_data,'#{params[:muscle_group]}','$.muscle_groups')")
+    exercises = @exercises.map { |exercise| decorate(exercise) }
+    render json: { status: "success", data: { exercises: exercises } }, status: :ok
   end
 
   private
 
   def exercise_params
-    request.parameters[:exercise].slice(:name, :tips, :exercise_type, :meta_data)
+    request.parameters[:exercise].slice(:name, :tips, :exercise_type, :meta_data, :muscle_group)
   end
 
   def find_exercise
