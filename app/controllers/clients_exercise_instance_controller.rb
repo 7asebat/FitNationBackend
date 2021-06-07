@@ -19,7 +19,7 @@ class ClientsExerciseInstanceController < ApplicationController
   def me_index
     p = me_index_params
     @date = p[:date].split('T')[0]
-    @client_exercise_instances = ClientsExerciseInstance.where("DATE(`date`) = ?", @date).where(client: @user).all
+    @client_exercise_instances = ClientsExerciseInstance.includes({ workout_plan_exercise: :exercise }, :exercise, :client).where("DATE(`date`) = ?", @date).where(client: @user).all.decorate.as_json
   end
 
   def create_params
