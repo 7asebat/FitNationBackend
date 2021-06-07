@@ -53,6 +53,12 @@ class WorkoutPlansController < ApplicationController
     render status: :ok
   end
 
+  def update_image
+    workout_plan = WorkoutPlan.find(params[:id])
+    workout_plan.image = params[:image]
+    workout_plan.save!
+  end
+
   def me_index
     @workout_plans = @user.workout_plans.includes(:client, :trainer).all
     render status: :ok

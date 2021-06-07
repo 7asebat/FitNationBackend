@@ -56,6 +56,7 @@ Rails.application.routes.draw do
     post "/", to: "workout_plans#create"
     get "/", to: "workout_plans#index"
     get "/:id", to: "workout_plans#get"
+    patch "/:id/image", to:"workout_plans#update_image"
   end
 
   scope :admin do
