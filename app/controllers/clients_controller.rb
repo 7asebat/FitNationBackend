@@ -22,7 +22,7 @@ class ClientsController < ApplicationController
   end
 
   def setActiveWorkoutPlan
-    @user.update_column(:workout_plans_id,params[:workout_plan_id])
+    @user.update_column(:active_workout_plan_id,params[:workout_plan_id])
       render json:{status:"success",message:"Active workout plan is set succesfully"},status: :ok
   end
   
