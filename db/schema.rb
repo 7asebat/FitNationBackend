@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_07_114009) do
+ActiveRecord::Schema.define(version: 2021_06_07_202915) do
 
   create_table "active_storage_attachments", charset: "latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -118,8 +118,8 @@ ActiveRecord::Schema.define(version: 2021_06_07_114009) do
   end
 
   create_table "nutrition_specifications", charset: "latin1", force: :cascade do |t|
-    t.bigint "food_id", null: false
-    t.bigint "recipe_id", null: false
+    t.bigint "food_id"
+    t.bigint "recipe_id"
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
