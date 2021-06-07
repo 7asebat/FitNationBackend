@@ -73,7 +73,7 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    request.parameters[:recipe].slice(:name, :description, :photo)
+    request.parameters.slice(:name, :description, :image)
   end
 
   def find_recipe
@@ -97,10 +97,10 @@ class RecipesController < ApplicationController
   end
 
   def insert_joined_recipe_food
-    foods = Food.find(params[:recipe][:foods])
+    foods = Food.find(params[:foods])
 
     query = "INSERT INTO foods_recipes VALUES "
-    params[:recipe][:foods].each_with_index { |id, index|
+    params[:foods].each_with_index { |id, index|
       if index == foods.length() - 1
         query += "(#{@recipe.id},#{id})"
       else
