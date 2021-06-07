@@ -3,18 +3,17 @@ class ExercisesController < ApplicationController
 
   def index
     @exercises = Exercise.all
-    exercises = @exercises.map { |exercise| decorate(exercise) }
-    render json: { status: "success", data: { exercises: exercises } }, status: :ok
+    render json: { status: "success", data: { exercises: @exercises.decorate.as_json } }, status: :ok
   end
 
   def show
-    render json: { status: "success", data: { exercise: decorate(@exercise) } }, status: :ok
+    render json: { status: "success", data: { exercise: @exercise.decorate.as_json } }, status: :ok
   end
 
   def create
     @exercise = Exercise.new(exercise_params)
     if @exercise.save
-      render json: { status: "success", data: { exercise: decorate(@exercise) } }, status: :created
+      render json: { status: "success", data: { exercise: @exercise.decorate.as_json } }, status: :created
     else
       render json: { status: "error", error: "Unable to create exercise." }, status: :bad_request
     end
@@ -22,7 +21,7 @@ class ExercisesController < ApplicationController
 
   def update
     @exercise.update(exercise_params)
-    render json: { status: "success", data: { exercise: decorate(@exercise) } }, statu: :ok
+    render json: { status: "success", data: { exercise: @exercise.decorate.as_json } }, statu: :ok
   end
 
   def update_image
@@ -38,8 +37,7 @@ class ExercisesController < ApplicationController
   def getExerciseByMuscleGroup
     puts "(meta_data->'muscle_groups')::jsonb @> '#{params[:muscle_group]}'"
     @exercises = Exercise.where("JSON_CONTAINS(meta_data,'#{params[:muscle_group]}','$.muscle_groups')")
-    exercises = @exercises.map { |exercise| decorate(exercise) }
-    render json: { status: "success", data: { exercises: exercises } }, status: :ok
+    render json: { status: "success", data: { exercises: @exercises.decorate.as_json } }, status: :ok
   end
 
   private
