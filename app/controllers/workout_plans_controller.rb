@@ -6,6 +6,14 @@ class WorkoutPlansController < ApplicationController
     authenticate(roles: [UserAuth.roles[:client], UserAuth.roles[:trainer]])
   end
 
+  def get
+    id = params[:id]
+
+    @workout_plan = WorkoutPlan.includes({workout_plan_exercises: :exercise}).find(id)
+
+    render status: :created
+  end
+
   def create
 
     p = create_params

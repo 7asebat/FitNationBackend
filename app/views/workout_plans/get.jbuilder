@@ -1,0 +1,1 @@
+json.workout_plan @workout_plan.decorate.as_json_detailed
