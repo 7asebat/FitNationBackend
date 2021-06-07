@@ -97,10 +97,11 @@ class RecipesController < ApplicationController
   end
 
   def insert_joined_recipe_food
-    foods = Food.find(params[:foods])
-
+    foodsIds=params[:foods].split(",").map(&:to_i)
+    foods = Food.find(foodsIds)
+    puts "HERE"
     query = "INSERT INTO foods_recipes VALUES "
-    params[:foods].each_with_index { |id, index|
+    foodsIds.each_with_index { |id, index|
       if index == foods.length() - 1
         query += "(#{@recipe.id},#{id})"
       else
