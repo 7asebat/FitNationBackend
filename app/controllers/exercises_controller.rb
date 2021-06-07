@@ -1,5 +1,5 @@
 class ExercisesController < ApplicationController
-  before_action :find_exercise, only: [:show, :update, :destroy]
+  before_action :find_exercise, only: [:show, :update, :destroy, :update_image]
 
   def index
     @exercises = Exercise.all
@@ -25,6 +25,11 @@ class ExercisesController < ApplicationController
     render json: { status: "success", data: { exercise: decorate(@exercise) } }, statu: :ok
   end
 
+  def update_image
+    @exercise.image = params[:image]
+    @exercise.save!
+  end
+
   def destroy
     @exercise.destroy
     render json: { status: "success", message: "Exercise deleted successfully." }, status: :ok
@@ -40,7 +45,7 @@ class ExercisesController < ApplicationController
   private
 
   def exercise_params
-    request.parameters.slice(:name, :tips, :exercise_type, :meta_data, :muscle_group, :image)
+    request.parameters.slice(:name, :tips, :exercise_type, :meta_data, :muscle_group)
   end
 
   def find_exercise

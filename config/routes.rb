@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   scope :exercises do
     get "muscle_group", to:"exercises#getExerciseByMuscleGroup"
+    patch "/:id/image", to:"exercises#update_image"
   end
   resources :exercises
   resources :foods
