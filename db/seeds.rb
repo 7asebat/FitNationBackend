@@ -13,7 +13,7 @@ Nutritionist.create(name: "Abdelrahman Farid", user_auth: UserAuth.new(email: "n
 
 exercises = JSON.parse(File.read("db/seeds/exercises/exercises.json")).with_indifferent_access[:exercises]
 exercises.each do |u|
-  exercise = Exercise.create(name: u[:name], meta_data: u[:meta_data])
+  exercise = Exercise.create(name: u[:name], meta_data: u[:meta_data], tips: u[:tips])
   if File.exists?("db/seeds/exercises/videos/#{u[:id]}.mp4")
     exercise.clip.attach(io: File.open("db/seeds/exercises/videos/#{u[:id]}.mp4"), filename: "#{u[:id]}.mp4", content_type: "video/mp4")
   end
