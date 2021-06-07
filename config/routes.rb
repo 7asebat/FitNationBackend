@@ -68,6 +68,7 @@ Rails.application.routes.draw do
 
   scope :clients do
     delete "/:id", to: "clients#delete"
+    get "/dashboard", to: "clients#dashboard"
 
     scope :exercises_instances do
       post "/", to: "clients_exercise_instance#create"
