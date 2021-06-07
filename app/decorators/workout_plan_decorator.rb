@@ -39,6 +39,7 @@ class WorkoutPlanDecorator < Draper::Decorator
       level: level,
       requires_equipment: requires_equipment,
       exercise_instances: object&.workout_plan_exercises.decorate.as_json.group_by{ |u| u[:day] }
+      image: image.url
     }
   end
 end

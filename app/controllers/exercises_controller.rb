@@ -1,19 +1,24 @@
 class ExercisesController < ApplicationController
   before_action :find_exercise, only: [:show, :update, :destroy, :update_image]
+  include Paginateable
 
   def index
-    @exercises = Exercise.all
-    render json: { status: "success", data: { exercises: @exercises.decorate.as_json } }, status: :ok
+    @limit, @page, @offset = pagination_params
+
+    @records = Exercise.limit(@limit).offset(@offset).all.decorate.as_json
+    @total = Exercise.all.count
+    @count = @records.count
+    render status: :ok
   end
 
   def show
-    render json: { status: "success", data: { exercise: @exercise.decorate.as_json } }, status: :ok
+    render status: :ok
   end
 
   def create
     @exercise = Exercise.new(exercise_params)
     if @exercise.save
-      render json: { status: "success", data: { exercise: @exercise.decorate.as_json } }, status: :created
+      render status: :created
     else
       render json: { status: "error", error: "Unable to create exercise." }, status: :bad_request
     end
@@ -21,7 +26,7 @@ class ExercisesController < ApplicationController
 
   def update
     @exercise.update(exercise_params)
-    render json: { status: "success", data: { exercise: @exercise.decorate.as_json } }, statu: :ok
+    render status: :ok
   end
 
   def update_image
@@ -31,13 +36,17 @@ class ExercisesController < ApplicationController
 
   def destroy
     @exercise.destroy
-    render json: { status: "success", message: "Exercise deleted successfully." }, status: :ok
+    render status: :ok
   end
 
   def getExerciseByMuscleGroup
-    puts "(meta_data->'muscle_groups')::jsonb @> '#{params[:muscle_group]}'"
-    @exercises = Exercise.where("JSON_CONTAINS(meta_data,'#{params[:muscle_group]}','$.muscle_groups')")
-    render json: { status: "success", data: { exercises: @exercises.decorate.as_json } }, status: :ok
+    @limit, @page, @offset = pagination_params
+
+    @records = Exercise.where("JSON_CONTAINS(meta_data,'#{params[:muscle_group]}','$.muscle_groups')").limit(@limit).offset(@offset).all.decorate.as_json
+    @total = Exercise.where("JSON_CONTAINS(meta_data,'#{params[:muscle_group]}','$.muscle_groups')").all.count
+    @count = @records.count
+    
+    render status: :ok
   end
 
   private
