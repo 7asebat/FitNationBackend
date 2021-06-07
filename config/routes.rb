@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   scope :me do
     scope :workout_plans do
       get "/", to: "workout_plans#me_index"
+      patch "active_plan", to:"clients#setActiveWorkoutPlan"
     end
 
     scope :exercises_instances do
