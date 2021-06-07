@@ -1,19 +1,25 @@
 class FoodsController < ApplicationController
   before_action :find_food, only: [:show, :update, :destroy]
+  include Paginateable
 
   def index
-    @foods = Food.all
-    render json: { status: "success", data: { food: @foods.decorate.as_json } }, status: :ok
+    @limit, @page, @offset = pagination_params
+
+    @records = Food.limit(@limit).offset(@offset).all.decorate.as_json
+    @total = Food.all.count
+    @count = @records.count
+
+    render status: :ok
   end
 
   def show
-      render json: { status: "success", data: { food: @food.decorate.as_json } }, status: :ok
+      render status: :ok
   end
 
   def create
     @food = Food.new(food_params)
     if @food.save
-      render json: { status: "success", data: { food: @food.decorate.as_json } }, status: :created
+      render status: :created
     else
       render json: { status: "error", error: "Unable to create food." }, status: :bad_request
     end
@@ -21,12 +27,12 @@ class FoodsController < ApplicationController
 
   def update
       @food.update(food_params)
-      render json: { status: "success", data: { food: @food.decorate.as_json } }, statu: :ok
+      render status: :ok
   end
 
   def destroy
       @food.destroy
-      render json: { status: "success", message: "Food deleted successfully." }, status: :ok
+      render status: :ok
   end
 
   private
