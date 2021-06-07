@@ -71,6 +71,7 @@ class ClientWeightNutritionsController < ApplicationController
     if @user.id == @client_w_n.client_id
       ActiveRecord::Base.transaction do
         @n_spec = NutritionSpecification.new(n_spec_params)
+        puts "HI"
         if @n_spec.save
           @client_w_n.nutrition_specifications.push(@n_spec)
           @client_w_n.save
