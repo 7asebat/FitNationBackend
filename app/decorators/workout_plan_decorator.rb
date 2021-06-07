@@ -28,4 +28,15 @@ class WorkoutPlanDecorator < Draper::Decorator
       exercise_instances: object&.workout_plan_exercises.decorate.as_json.group_by{ |u| u[:day] }
     }
   end
+  def as_json_detailed_no_client
+    {
+      id: id,
+      created_at: created_at,
+      updated_at: updated_at,
+      name: name,
+      level: level,
+      requires_equipment: requires_equipment,
+      exercise_instances: object&.workout_plan_exercises.decorate.as_json.group_by{ |u| u[:day] }
+    }
+  end
 end
