@@ -47,7 +47,7 @@ class WorkoutPlansController < ApplicationController
     @limit, @page, @offset = pagination_params
 
     @records = WorkoutPlan.where.not(trainer_id: nil).where(client_id: nil).limit(@limit).offset(@offset).all.decorate.as_json
-    @total = WorkoutPlan.all.count
+    @total = WorkoutPlan.where.not(trainer_id: nil).where(client_id: nil).count
     @count = @records.count
 
     render status: :ok
@@ -57,6 +57,11 @@ class WorkoutPlansController < ApplicationController
     workout_plan = WorkoutPlan.find(params[:id])
     workout_plan.image = params[:image]
     workout_plan.save!
+  end
+
+  def delete
+    @workout_plan = WorkoutPlan.find(params[:id])
+    @workout_plan.destroy!
   end
 
   def me_index
