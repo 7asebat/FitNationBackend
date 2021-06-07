@@ -6,7 +6,7 @@ class Client < ApplicationRecord
   has_many :clients_weights_nutritions
   has_many :clients_exercise_instances
   has_many :workout_plans
-  belongs_to :active_workout_plan, foreign_key: :active_workout_plan_id, class_name: :WorkoutPlan
+  belongs_to :active_workout_plan, foreign_key: :active_workout_plan_id, class_name: :WorkoutPlan, optional:true
 
   def create_workout_plan(client_id:, level:, name:, requires_equipment:)
     WorkoutPlan.create!(client: self, level: level, name: name, requires_equipment: requires_equipment)
