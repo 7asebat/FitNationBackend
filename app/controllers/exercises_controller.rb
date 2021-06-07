@@ -40,7 +40,7 @@ class ExercisesController < ApplicationController
   private
 
   def exercise_params
-    request.parameters[:exercise].slice(:name, :tips, :exercise_type, :meta_data, :muscle_group)
+    request.parameters.slice(:name, :tips, :exercise_type, :meta_data, :muscle_group, :image)
   end
 
   def find_exercise
