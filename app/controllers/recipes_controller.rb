@@ -1,14 +1,21 @@
 class RecipesController < ApplicationController
+  include Paginateable
+
   before_action :find_recipe, only: [:show, :update, :destroy, :add_food, :remove_food]
   before_action :authenticate_nutritionist, only: [:create, :destroy, :update, :add_food, :remove_food]
 
   def index
-    @recipes = Recipe.all
-    render json: { status: "success", data: { recipes: @recipes.decorate.as_json } }, status: :ok
+    @limit, @page, @offset = pagination_params
+
+    @records = Recipe.limit(@limit).offset(@offset).all.decorate.as_json
+    @total = Recipe.all.count
+    @count = @records.count
+
+    render status: :ok
   end
 
   def show
-    render json: { status: "success", data: { recipe: @recipe.decorate.as_json} }, status: :ok
+    render status: :ok
   end
 
   def create
@@ -17,9 +24,7 @@ class RecipesController < ApplicationController
       @recipe.nutritionist_id = @user.id
       if @recipe.save
         insert_joined_recipe_food
-        render json: { status: "success", data: { recipe: @recipe.decorate.as_json } }, status: :created
-      else
-        render json: { status: "error", error: "Unable to create recipe." }, status: :bad_request
+        render status: :created
       end
     end
   end
@@ -97,7 +102,7 @@ class RecipesController < ApplicationController
   end
 
   def insert_joined_recipe_food
-    foodsIds=params[:foods].split(",").map(&:to_i)
+    foodsIds = params[:foods].split(",").map(&:to_i)
     foods = Food.find(foodsIds)
     puts "HERE"
     query = "INSERT INTO foods_recipes VALUES "

@@ -6,7 +6,7 @@ class RecipeDecorator < Draper::Decorator
         id: id,
         name: name,
         description: description,
-        photo: photo,
+        image: image.url,
         foods: foods,
         nutritionist_id: nutritionist_id
       }
