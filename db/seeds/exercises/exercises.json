@@ -1,0 +1,247 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "name": "Benchpress",
+      "video": "https://vimeo.com/178057019",
+      "meta_data": {
+        "muscle_groups": [3, 8]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 2,
+      "name": "Deadlift",
+      "video": "https://vimeo.com/178056325",
+      "meta_data": {
+        "muscle_groups": [10]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 3,
+      "name": "Squat",
+      "video": "https://vimeo.com/178056008",
+      "meta_data": {
+        "muscle_groups": [10, 13, 11]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 4,
+      "name": "Tricep pulldown",
+      "video": "https://vimeo.com/178054967",
+      "meta_data": {
+        "muscle_groups": [3]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 5,
+      "name": "Pulley crunch",
+      "video": "https://vimeo.com/178052126",
+      "meta_data": {
+        "muscle_groups": [1, 0, 3]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 6,
+      "name": "Floor crunch",
+      "video": "https://vimeo.com/178050912",
+      "meta_data": {
+        "muscle_groups": [6, 7]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 7,
+      "name": "Overhead tricep extension",
+      "video": "https://vimeo.com/178050262",
+      "meta_data": {
+        "muscle_groups": [6, 7]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 8,
+      "name": "Dumbbell press",
+      "video": "https://vimeo.com/178048727",
+      "meta_data": {
+        "muscle_groups": [3]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 9,
+      "name": "Forearm curl back (15 reps)",
+      "video": "https://vimeo.com/178047269",
+      "meta_data": {
+        "muscle_groups": [2]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 10,
+      "name": "Seated pulley row",
+      "video": "https://vimeo.com/178042607",
+      "meta_data": {
+        "muscle_groups": [5, 2, 3, 0]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 11,
+      "name": "Shrug",
+      "video": "https://vimeo.com/177971664",
+      "meta_data": {
+        "muscle_groups": [4]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 12,
+      "name": "Calf raise",
+      "video": "https://vimeo.com/177971348",
+      "meta_data": {
+        "muscle_groups": [10]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 13,
+      "name": "Dumbbell romanian deadlift",
+      "video": "https://vimeo.com/177971032",
+      "meta_data": {
+        "muscle_groups": [9, 11, 4]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 14,
+      "name": "Forearm curl up",
+      "video": "https://vimeo.com/177970644",
+      "meta_data": {
+        "muscle_groups": [0]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 15,
+      "name": "Dumbbell squat",
+      "video": "https://vimeo.com/177970342",
+      "meta_data": {
+        "muscle_groups": [13]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 16,
+      "name": "Front raise",
+      "video": "https://vimeo.com/177969758",
+      "meta_data": {
+        "muscle_groups": [8, 1]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 17,
+      "name": "Julian tricep extension",
+      "video": "https://vimeo.com/177969524",
+      "meta_data": {
+        "muscle_groups": [3]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 18,
+      "name": "Bicep curl",
+      "video": "https://vimeo.com/177968823",
+      "meta_data": {
+        "muscle_groups": [0]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 19,
+      "name": "Dumbbell incline press",
+      "video": "https://vimeo.com/177967959",
+      "meta_data": {
+        "muscle_groups": [8, 1, 0, 3]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 20,
+      "name": "Hammer pulley curls",
+      "video": "https://vimeo.com/",
+      "meta_data": {
+        "muscle_groups": [0]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 21,
+      "name": "Side raise",
+      "video": "https://vimeo.com/177961354",
+      "meta_data": {
+        "muscle_groups": [1, 8]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 22,
+      "name": "Dumbbell shoulder press",
+      "video": "https://www.vimeo.com/151248907",
+      "meta_data": {
+        "muscle_groups": [8, 1, 3]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 23,
+      "name": "Overhead press",
+      "video": "https://vimeo.com/96081016",
+      "meta_data": {
+        "muscle_groups": [6, 7, 3, 1]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 24,
+      "name": "Hamstring curl",
+      "video": "https://vimeo.com/164443477",
+      "meta_data": {
+        "muscle_groups": [11, 12]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 25,
+      "name": "Lat pulldown",
+      "video": "https://vimeo.com/164080300",
+      "meta_data": {
+        "muscle_groups": [5, 4]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 26,
+      "name": "Hanging leg raise",
+      "video": "https://vimeo.com/39560703",
+      "meta_data": {
+        "muscle_groups": [6, 13]
+      },
+      "tips": "Technique is more important than reps"
+    },
+    {
+      "id": 27,
+      "name": "Oblique twist",
+      "video": "https://vimeo.com/178079508",
+      "meta_data": {
+        "muscle_groups": [6, 7]
+      },
+      "tips": "Technique is more important than reps"
+    }
+  ]
+}

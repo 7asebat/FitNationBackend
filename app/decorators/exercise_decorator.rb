@@ -8,7 +8,8 @@ class ExerciseDecorator < Draper::Decorator
       tips: tips,
       exercise_type: exercise_type,
       meta_data: meta_data,
-      image: image.url
+      image: image.url,
+      clip: clip.url
     }
   end
 end
