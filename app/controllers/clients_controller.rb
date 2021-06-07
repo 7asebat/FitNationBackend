@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :authenticate_client, only: [:setActiveWorkoutPlan]
+  before_action :authenticate_client, only: [:setActiveWorkoutPlan, :dashboard]
 
   def sign_up
     ActiveRecord::Base.transaction do
@@ -19,6 +19,31 @@ class ClientsController < ApplicationController
       id = params[:id]
       Client.destroy(id)
     end
+  end
+
+  def dashboard
+    @exercise_instances_count = @user.clients_exercise_instances.count
+    clients_exercise_instances = @user.clients_exercise_instances.order(:date).all
+
+    @longest_streak = 0
+    last_exercise_date = Date.new(1970, 1, 1)
+
+    current_streak = 1
+
+    clients_exercise_instances.each do |u|
+      number_of_days = (u.date.to_date - last_exercise_date).to_i
+
+      if number_of_days == 1
+        current_streak += 1
+      elsif number_of_days > 1
+        @longest_streak = [current_streak, @longest_streak].max
+        current_streak = 1
+      end
+
+      last_exercise_date = u.date.to_date
+      @longest_streak = [current_streak, @longest_streak].max
+    end
+
   end
 
   def setActiveWorkoutPlan
