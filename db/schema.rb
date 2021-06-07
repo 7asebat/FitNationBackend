@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_07_203902) do
+ActiveRecord::Schema.define(version: 2021_06_07_202915) do
 
-  create_table "active_storage_attachments", charset: "latin1", force: :cascade do |t|
+  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "latin1", force: :cascade do |t|
+  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -34,13 +34,13 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", charset: "latin1", force: :cascade do |t|
+  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "admins", charset: "latin1", force: :cascade do |t|
+  create_table "admins", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "user_auth_id", null: false
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.index ["user_auth_id"], name: "index_admins_on_user_auth_id"
   end
 
-  create_table "clients", charset: "latin1", force: :cascade do |t|
+  create_table "clients", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "user_auth_id", null: false
     t.integer "country"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.index ["user_auth_id"], name: "index_clients_on_user_auth_id"
   end
 
-  create_table "clients_exercise_instances", charset: "latin1", force: :cascade do |t|
+  create_table "clients_exercise_instances", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.datetime "date"
     t.bigint "workout_plan_exercise_id"
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.index ["workout_plan_exercise_id"], name: "index_clients_exercise_instances_on_workout_plan_exercise_id"
   end
 
-  create_table "clients_weights_nutritions", charset: "latin1", force: :cascade do |t|
+  create_table "clients_weights_nutritions", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.datetime "date"
     t.integer "weight"
@@ -84,14 +84,14 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.index ["client_id"], name: "index_clients_weights_nutritions_on_client_id"
   end
 
-  create_table "clients_weights_nutritions_nutrition_specifications", id: false, charset: "latin1", force: :cascade do |t|
+  create_table "clients_weights_nutritions_nutrition_specifications", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "clients_weights_nutrition_id", null: false
     t.bigint "nutrition_specification_id", null: false
     t.index ["clients_weights_nutrition_id", "nutrition_specification_id"], name: "index_client_weights_nutrition_nutrition_specs"
     t.index ["nutrition_specification_id", "clients_weights_nutrition_id"], name: "index_nutrition_specs_client_weights_nutrition"
   end
 
-  create_table "exercises", charset: "latin1", force: :cascade do |t|
+  create_table "exercises", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.text "tips"
     t.integer "exercise_type"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "foods", charset: "latin1", force: :cascade do |t|
+  create_table "foods", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.boolean "has_image"
     t.string "name"
     t.integer "food_type"
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "foods_recipes", id: false, charset: "latin1", force: :cascade do |t|
+  create_table "foods_recipes", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "recipe_id", null: false
     t.bigint "food_id", null: false
     t.index ["food_id"], name: "index_foods_recipes_on_food_id"
@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.index ["recipe_id"], name: "index_foods_recipes_on_recipe_id"
   end
 
-  create_table "nutrition_specifications", charset: "latin1", force: :cascade do |t|
+  create_table "nutrition_specifications", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "food_id"
     t.bigint "recipe_id"
     t.integer "quantity"
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.index ["recipe_id"], name: "index_nutrition_specifications_on_recipe_id"
   end
 
-  create_table "nutritionists", charset: "latin1", force: :cascade do |t|
+  create_table "nutritionists", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "user_auth_id", null: false
     t.integer "country"
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.index ["user_auth_id"], name: "index_nutritionists_on_user_auth_id"
   end
 
-  create_table "recipes", charset: "latin1", force: :cascade do |t|
+  create_table "recipes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "photo"
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.index ["nutritionist_id"], name: "index_recipes_on_nutritionist_id"
   end
 
-  create_table "trainer_client_messages", charset: "latin1", force: :cascade do |t|
+  create_table "trainer_client_messages", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "trainer_id", null: false
     t.string "body"
@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.index ["trainer_id"], name: "index_trainer_client_messages_on_trainer_id"
   end
 
-  create_table "trainers", charset: "latin1", force: :cascade do |t|
+  create_table "trainers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "user_auth_id", null: false
     t.integer "country"
@@ -165,7 +165,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.index ["user_auth_id"], name: "index_trainers_on_user_auth_id"
   end
 
-  create_table "user_auths", charset: "latin1", force: :cascade do |t|
+  create_table "user_auths", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "password_digest"
     t.integer "role"
     t.string "reset_password_token"
@@ -175,7 +175,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.string "email"
   end
 
-  create_table "workout_plan_exercises", charset: "latin1", force: :cascade do |t|
+  create_table "workout_plan_exercises", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "exercise_id", null: false
     t.bigint "workout_plan_id", null: false
     t.integer "day"
@@ -189,7 +189,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
     t.index ["workout_plan_id"], name: "index_workout_plan_exercises_on_workout_plan_id"
   end
 
-  create_table "workout_plans", charset: "latin1", force: :cascade do |t|
+  create_table "workout_plans", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "client_id"
     t.bigint "trainer_id"
     t.datetime "created_at", precision: 6, null: false
@@ -205,7 +205,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admins", "user_auths"
   add_foreign_key "clients", "user_auths"
-  add_foreign_key "clients", "workout_plans", column: "active_workout_plan_id", on_delete: :nullify
+  add_foreign_key "clients", "workout_plans", column: "active_workout_plan_id"
   add_foreign_key "clients_exercise_instances", "clients"
   add_foreign_key "clients_exercise_instances", "exercises"
   add_foreign_key "clients_exercise_instances", "workout_plan_exercises"
@@ -218,6 +218,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_203902) do
   add_foreign_key "trainer_client_messages", "trainers"
   add_foreign_key "trainers", "user_auths"
   add_foreign_key "workout_plan_exercises", "exercises"
+  add_foreign_key "workout_plan_exercises", "workout_plans"
   add_foreign_key "workout_plans", "clients"
   add_foreign_key "workout_plans", "trainers"
 end
