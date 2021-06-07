@@ -50,7 +50,7 @@ Rails.application.routes.draw do
 
     scope :exercises_instances do
       get "/", to: "clients_exercise_instance#me_index"
-    end
+  end
   end
 
   scope :workout_plans do
@@ -58,6 +58,7 @@ Rails.application.routes.draw do
     get "/", to: "workout_plans#index"
     get "/:id", to: "workout_plans#get"
     patch "/:id/image", to:"workout_plans#update_image"
+    delete "/:id", to: "workout_plans#delete"
   end
 
   scope :admin do
