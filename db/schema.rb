@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_07_202915) do
+ActiveRecord::Schema.define(version: 2021_06_07_203902) do
 
   create_table "active_storage_attachments", charset: "latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -205,7 +205,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_202915) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admins", "user_auths"
   add_foreign_key "clients", "user_auths"
-  add_foreign_key "clients", "workout_plans", column: "active_workout_plan_id"
+  add_foreign_key "clients", "workout_plans", column: "active_workout_plan_id", on_delete: :nullify
   add_foreign_key "clients_exercise_instances", "clients"
   add_foreign_key "clients_exercise_instances", "exercises"
   add_foreign_key "clients_exercise_instances", "workout_plan_exercises"
@@ -218,7 +218,6 @@ ActiveRecord::Schema.define(version: 2021_06_07_202915) do
   add_foreign_key "trainer_client_messages", "trainers"
   add_foreign_key "trainers", "user_auths"
   add_foreign_key "workout_plan_exercises", "exercises"
-  add_foreign_key "workout_plan_exercises", "workout_plans"
   add_foreign_key "workout_plans", "clients"
   add_foreign_key "workout_plans", "trainers"
 end

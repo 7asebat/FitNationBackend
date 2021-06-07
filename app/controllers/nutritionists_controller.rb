@@ -1,4 +1,6 @@
 class NutritionistsController < ApplicationController
+  before_action :authenticate_nutritionist
+
   def sign_up
     ActiveRecord::Base.transaction do
       p = sign_up_params
@@ -17,6 +19,10 @@ class NutritionistsController < ApplicationController
       id = params[:id]
       Nutritionist.destroy(id)
     end
+  end
+
+  def dashboard
+    @recipes_count = @user.recipes.count
   end
   
   private

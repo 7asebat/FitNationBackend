@@ -82,6 +82,7 @@ Rails.application.routes.draw do
 
   scope :nutritionists do
     delete "/:id", to: "nutritionists#delete"
+    get "/dashboard", to: "nutritionists#dashboard"
   end
 
   scope :admins do
