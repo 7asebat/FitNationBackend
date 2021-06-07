@@ -9,7 +9,7 @@ class ClientDecorator < Draper::Decorator
       email: user_auth&.email,
       role: user_auth&.role,
       avatar: avatar.url,
-      active_workout_plan: workout_plans_id
+      active_workout_plan: active_workout_plan
     }
   end
 end
