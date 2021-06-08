@@ -21,38 +21,27 @@ end
 
 foods = JSON.parse(File.read("db/seeds/food/food.json"))
 
-foods.each do |u|
+foods.each_with_index do |u, i|
   name = u["Food and Serving"].split(',').first
   quantity = u["Food and Serving"].split(',').second&.strip
-
-  calories = u["Calories"]
-  sodium = u["Sodium"]
-  potassium = u["Potassium"]
-  carbs = u["Total Carbo-hydrate"]
-  fibers = u["Dietary Fiber"]
-  sugar = u["Sugars"]
-  protein = u["Protein"]
-  vitaminA = u["Vitamin A"]
-  vitaminC = u["Vitamin C"]
-  calcium = u["Calcium"]
-  iron = u["��Iron��"]
 
   type = u["Food Type"]
 
   nutrition_facts = {
-    calories: calories,
-    sodium: sodium,
-    potassium: potassium,
-    carbs: carbs,
-    fibers: fibers,
-    sugar: sugar,
-    protein: protein,
-    vitaminA: vitaminA,
-    vitaminC: vitaminC,
-    calcium: calcium,
-    iron: iron,
+    calories: u["Calories"],
+    sodium: u["Sodium"],
+    potassium: u["Potassium"],
+    carbs: u["Total Carbo-hydrate"],
+    fibers: u["Dietary Fiber"],
+    sugar: u["Sugars"],
+    protein: u["Protein"],
+    vitaminA: u["Vitamin A"],
+    vitaminC: u["Vitamin C"],
+    calcium: u["Calcium"],
+    iron: u["Iron"],
     quantity: quantity
   }
 
-  Food.create(name: name, nutrition_facts: nutrition_facts, food_type: ::Food.food_types[type])
+  food = Food.create(name: name, nutrition_facts: nutrition_facts, food_type: ::Food.food_types[type])
+  food.image.attach(io: File.open("db/seeds/food/images/#{i+1}.jpg"), filename: "#{i+1}.jpg", content_type: "image/jpeg")
 end
