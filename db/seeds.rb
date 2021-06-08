@@ -18,3 +18,41 @@ exercises.each do |u|
     exercise.clip.attach(io: File.open("db/seeds/exercises/videos/#{u[:id]}.mp4"), filename: "#{u[:id]}.mp4", content_type: "video/mp4")
   end
 end
+
+foods = JSON.parse(File.read("db/seeds/food/food.json"))
+
+foods.each do |u|
+  name = u["Food and Serving"].split(',').first
+  quantity = u["Food and Serving"].split(',').second
+
+  calories = u["Calories"]
+  sodium = u["Sodium"]
+  potassium = u["Potassium"]
+  carbs = u["Total Carbo-hydrate"]
+  fibers = u["Dietary Fiber"]
+  sugar = u["Sugars"]
+  protein = u["Protein"]
+  vitaminA = u["Vitamin A"]
+  vitaminC = u["Vitamin C"]
+  calcium = u["Calcium"]
+  iron = u["��Iron��"]
+
+  type = u["Food Type"]
+
+  nutrition_facts = {
+    calories: calories,
+    sodium: sodium,
+    potassium: potassium,
+    carbs: carbs,
+    fibers: fibers,
+    sugar: sugar,
+    protein: protein,
+    vitaminA: vitaminA,
+    vitaminC: vitaminC,
+    calcium: calcium,
+    iron: iron,
+    quantity: quantity
+  }
+
+  Food.create(name: name, nutrition_facts: nutrition_facts, food_type: ::Food.food_types[type])
+end
