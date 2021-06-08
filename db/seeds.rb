@@ -23,7 +23,7 @@ foods = JSON.parse(File.read("db/seeds/food/food.json"))
 
 foods.each do |u|
   name = u["Food and Serving"].split(',').first
-  quantity = u["Food and Serving"].split(',').second
+  quantity = u["Food and Serving"].split(',').second&.strip
 
   calories = u["Calories"]
   sodium = u["Sodium"]
