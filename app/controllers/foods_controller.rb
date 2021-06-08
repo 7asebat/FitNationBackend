@@ -5,8 +5,8 @@ class FoodsController < ApplicationController
   def index
     @limit, @page, @offset = pagination_params
 
-    @records = Food.limit(@limit).offset(@offset).all.decorate.as_json
-    @total = Food.all.count
+    @records = Food.where("name LIKE ?", "%#{params[:q]}%").limit(@limit).offset(@offset).all.decorate.as_json
+    @total = Food.where("name LIKE ?", "%#{params[:q]}%").all.count
     @count = @records.count
 
     render status: :ok
