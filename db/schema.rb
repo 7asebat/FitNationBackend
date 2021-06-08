@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_200828) do
+ActiveRecord::Schema.define(version: 2021_06_08_215223) do
 
   create_table "active_storage_attachments", charset: "latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 2021_06_08_200828) do
   create_table "trainer_client_messages", charset: "latin1", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "trainer_id", null: false
-    t.string "body"
+    t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "sent_by"
