@@ -12,6 +12,10 @@ class TrainersController < ApplicationController
     render status: :created
   end
 
+  def index
+    @trainers = Trainer.where("name LIKE ?", "%#{params[:q]}%").all.decorate.as_json
+  end
+
   def delete
     ActiveRecord::Base.transaction do
       id = params[:id]

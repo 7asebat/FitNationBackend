@@ -81,6 +81,7 @@ Rails.application.routes.draw do
 
   scope :trainers do
     delete "/:id", to: "trainers#delete"
+    get "/", to: "trainers#index"
   end
 
   scope :nutritionists do
