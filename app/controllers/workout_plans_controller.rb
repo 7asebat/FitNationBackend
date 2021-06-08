@@ -61,6 +61,8 @@ class WorkoutPlansController < ApplicationController
 
   def delete
     @workout_plan = WorkoutPlan.find(params[:id])
+    WorkoutPlanExercise.where(workout_plan: @workout_plan).delete_all
+    Client.where(active_workout_plan: @workout_plan).update_all(active_workout_plan_id: nil)
     @workout_plan.destroy!
   end
 
