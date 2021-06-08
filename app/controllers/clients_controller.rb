@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :authenticate_client, only: [:setActiveWorkoutPlan, :dashboard]
+  before_action :authenticate_client, only: [:setActiveWorkoutPlan, :dashboard, :update_image]
 
   def sign_up
     ActiveRecord::Base.transaction do
@@ -19,6 +19,11 @@ class ClientsController < ApplicationController
       id = params[:id]
       Client.destroy(id)
     end
+  end
+
+  def update_image
+    @user.avatar = params[:avatar]
+    @user.save!
   end
 
   def dashboard
