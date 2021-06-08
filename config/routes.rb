@@ -92,6 +92,12 @@ Rails.application.routes.draw do
     get "/dashboard", to: "admins#dashboard"
   end
 
+  scope :messaging do
+    get "/conversations", to: "trainer_client_messages#index"
+    get "/conversations/:id", to: "trainer_client_messages#get"
+    post "/conversations/:id", to: "trainer_client_messages#create"
+  end
+
   match "*unmatched_route", :to => "errors#routing", via: [:get, :post, :delete, :put, :patch], constraints: lambda{ |req|
     req.path.exclude? 'rails/active_storage'
   }
