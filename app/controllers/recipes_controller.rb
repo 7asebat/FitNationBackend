@@ -1,7 +1,7 @@
 class RecipesController < ApplicationController
   include Paginateable
 
-  before_action :find_recipe, only: [:show, :update, :destroy, :add_food, :remove_food]
+  before_action :find_recipe, only: [:show, :update, :destroy, :add_food, :remove_food, :update_image]
   before_action :authenticate_nutritionist, only: [:create, :destroy, :update, :add_food, :remove_food]
 
   def index
@@ -16,6 +16,11 @@ class RecipesController < ApplicationController
 
   def show
     render status: :ok
+  end
+
+  def update_image
+    @recipe.image = params[:image]
+    @recipe.save!
   end
 
   def create

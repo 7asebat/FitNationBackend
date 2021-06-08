@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   scope :recipes do
     patch ":id/add_food", to: "recipes#add_food"
     delete ":id/remove_food", to: "recipes#remove_food"
+    patch ":id/image", to: "recipes#update_image"
     get "nutritionist/:nutritionist_id", to: "recipes#get_recipes_nutritionist"
   end
 
