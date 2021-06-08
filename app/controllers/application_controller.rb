@@ -125,7 +125,7 @@ class ApplicationController < ActionController::API
       errors: [
         {
           title: "RecordNotUnique",
-          message: exception
+          message: exception.message
         }
       ],
     },  status: :bad_request
