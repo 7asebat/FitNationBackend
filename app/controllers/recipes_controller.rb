@@ -71,14 +71,14 @@ class RecipesController < ApplicationController
     nutritionist_id = params[:nutritionist_id]
     nutritionist = Nutritionist.find(nutritionist_id)
     @recipes = Recipe.where(nutritionist_id: nutritionist_id)
-    recipes = @recipes.map { |recipe| decorate(recipe) }
+    recipes = @recipes.map { |recipe| recipe.decorate.as_json }
     render json: { status: "success", data: { recipes: recipes } }, status: :ok
   end
 
   private
 
   def recipe_params
-    request.parameters.slice(:name, :description, :image)
+    request.parameters.dig(:recipe).slice(:name, :description)
   end
 
   def find_recipe
@@ -102,20 +102,12 @@ class RecipesController < ApplicationController
   end
 
   def insert_joined_recipe_food
-    foodsIds = params[:foods].split(",").map(&:to_i)
-    foods = Food.find(foodsIds)
-    puts "HERE"
-    query = "INSERT INTO foods_recipes VALUES "
-    foodsIds.each_with_index { |id, index|
-      if index == foods.length() - 1
-        query += "(#{@recipe.id},#{id})"
-      else
-        query += "(#{@recipe.id},#{id}),"
-      end
-    }
-    query += ";"
+    foods = params.dig(:recipe, :foods)
 
-    ActiveRecord::Base::connection.execute(query)
+    foods.each do |u|
+      FoodsRecipes.create!(recipe: @recipe, food_id: u[:id], quantity: u[:quantity])
+  end 
+    
   end
 
   def validate_nutritionist_recipe(recipe)

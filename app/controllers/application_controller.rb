@@ -39,9 +39,9 @@ class ApplicationController < ActionController::API
               "errors": [
                 {
                   "name": "Unauthorized",
-                  "message": "You are not authorized to view this"
-                }
-              ]
+                  "message": "You are not authorized to view this",
+                },
+              ],
             }, status: :unauthorized
           end
         end
@@ -53,9 +53,9 @@ class ApplicationController < ActionController::API
           "errors": [
             {
               "name": "#{e}",
-              "message": "#{e.message}"
-            }
-          ]
+              "message": "#{e.message}",
+            },
+          ],
         }, status: :internal_server_error
       end
     else
@@ -64,14 +64,14 @@ class ApplicationController < ActionController::API
         "errors": [
           {
             "name": "NoAuthorizationSent",
-            "message": "No authorization header sent"
-          }
-        ]
+            "message": "No authorization header sent",
+          },
+        ],
       }, status: :forbidden
     end
   end
 
-  def secret 
+  def secret
     Rails.application.secrets.secret_key_base
   end
 
@@ -83,40 +83,51 @@ class ApplicationController < ActionController::API
     JWT.encode(payload, secret)
   end
 
-
   rescue_from ActiveRecord::RecordNotFound do |exception|
-    render json: { 
+    render json: {
       status: "error",
       errors: [
         {
           title: "RecordNotFound",
-          message: "The requested resource is not found"
-        }
-      ]
+          message: "The requested resource is not found",
+        },
+      ],
     }, status: :not_found
   end
-  
+
   rescue_from ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid do |exception|
-    render json: { 
+    render json: {
       status: "error",
       errors: [
         {
           title: "InvalidRecord",
-          message: exception.record.errors
-        }
-      ]
+          message: exception.record.errors,
+        },
+      ],
     }, status: :unprocessable_entity
   end
-  
+
   rescue_from ActionController::ParameterMissing do |exception|
     render json: {
       status: "error",
       errors: [
         {
           title: "MissingParameter",
-          message: exception.message
-        }
-      ]
+          message: exception.message,
+        },
+      ],
     }, status: :bad_request
+  end
+
+  rescue_from ActiveRecord::RecordNotUnique do |exception|
+    render json: {
+      status: "error",
+      errors: [
+        {
+          title: "RecordNotUnique",
+          message: exception
+        }
+      ],
+    },  status: :bad_request
   end
 end

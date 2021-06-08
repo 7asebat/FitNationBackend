@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_07_202915) do
+ActiveRecord::Schema.define(version: 2021_06_08_131932) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_202915) do
   create_table "foods_recipes", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "recipe_id", null: false
     t.bigint "food_id", null: false
+    t.integer "quantity", default: 1
     t.index ["food_id"], name: "index_foods_recipes_on_food_id"
     t.index ["recipe_id", "food_id"], name: "index_foods_recipes_on_recipe_id_and_food_id", unique: true
     t.index ["recipe_id"], name: "index_foods_recipes_on_recipe_id"
