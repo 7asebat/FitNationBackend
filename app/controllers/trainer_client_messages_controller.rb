@@ -31,9 +31,9 @@ class TrainerClientMessagesController < ApplicationController
 
   def create
     if UserAuth.roles[@user.user_auth.role] == UserAuth.roles[:client]
-      @message = TrainerClientMessage.create!(client: @user, trainer_id: params[:id], body: params[:body])
+      @message = TrainerClientMessage.create!(client: @user, trainer_id: params[:id], body: params[:body], sent_by: :client)
     elsif UserAuth.roles[@user.user_auth.role] == UserAuth.roles[:trainer]
-      @message = TrainerClientMessage.create!(client_id: params[:id], trainer: @user, body: params[:body])
+      @message = TrainerClientMessage.create!(client_id: params[:id], trainer: @user, body: params[:body], sent_by: :trainer)
     end
 
     render status: :ok
