@@ -49,6 +49,8 @@ Rails.application.routes.draw do
       patch "active_plan", to:"clients#setActiveWorkoutPlan"
     end
 
+    patch "avatar", to: "user_auth#update_avatar"
+
     scope :exercises_instances do
       get "/", to: "clients_exercise_instance#me_index"
   end

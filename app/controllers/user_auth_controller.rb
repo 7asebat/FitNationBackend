@@ -1,6 +1,13 @@
 class UserAuthController < ApplicationController
   include Paginateable
 
+  before_action :authenticate_any, only: [:update_avatar]
+
+  def update_avatar
+    @user.avatar = params[:avatar]
+    @user.save!
+  end
+
   def index
     role = params[:role]
 
