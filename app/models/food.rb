@@ -1,4 +1,9 @@
 class Food < ApplicationRecord
+  include Discard::Model
+  default_scope -> { kept }
+
+
+
   has_one_attached :image
   has_many :nutrition_specifications
   

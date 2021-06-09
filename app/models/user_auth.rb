@@ -1,4 +1,8 @@
 class UserAuth < ApplicationRecord
+  include Discard::Model
+  default_scope -> { kept }
+
+
   has_secure_password
   has_one :admin
   has_one :client

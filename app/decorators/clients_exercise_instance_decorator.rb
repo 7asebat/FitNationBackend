@@ -11,7 +11,7 @@ class ClientsExerciseInstanceDecorator < Draper::Decorator
       reps: reps,
       duration: duration,
       created_at: created_at,
-      exercise: exercise.present? ? exercise.decorate.as_json : workout_plan_exercise.exercise.decorate.as_json
+      exercise: exercise&.present? ? exercise&.decorate&.as_json : workout_plan_exercise&.exercise&.decorate&.as_json
     }
   end
 end

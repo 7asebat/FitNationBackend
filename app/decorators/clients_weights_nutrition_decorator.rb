@@ -6,7 +6,7 @@ class ClientsWeightsNutritionDecorator < Draper::Decorator
         client_id: client_id,
         date: date,
         weight: weight,
-        nutrition_specifications: object.nutrition_specifications.decorate.as_json
+        nutrition_specifications: object&.nutrition_specifications&.decorate&.as_json
       }
     end
   end

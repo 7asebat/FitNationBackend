@@ -1,4 +1,8 @@
 class WorkoutPlan < ApplicationRecord
+  include Discard::Model
+  default_scope -> { kept }
+
+
   has_one_attached :image 
   
   belongs_to :client, optional: true

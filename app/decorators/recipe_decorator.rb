@@ -10,7 +10,7 @@ class RecipeDecorator < Draper::Decorator
         foods: foods_recipes.map do |u|
           {
             quantity: u[:quantity],
-            food: u.food.decorate.as_json
+            food: u&.food&.decorate&.as_json
           }
         end,
         nutritionist_id: nutritionist_id

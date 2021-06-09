@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_215223) do
+ActiveRecord::Schema.define(version: 2021_06_09_133135) do
 
   create_table "active_storage_attachments", charset: "latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -55,7 +55,9 @@ ActiveRecord::Schema.define(version: 2021_06_08_215223) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "active_workout_plan_id"
+    t.datetime "discarded_at"
     t.index ["active_workout_plan_id"], name: "index_clients_on_active_workout_plan_id"
+    t.index ["discarded_at"], name: "index_clients_on_discarded_at"
     t.index ["user_auth_id"], name: "index_clients_on_user_auth_id"
   end
 
@@ -98,6 +100,8 @@ ActiveRecord::Schema.define(version: 2021_06_08_215223) do
     t.json "meta_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_exercises_on_discarded_at"
   end
 
   create_table "foods", charset: "latin1", force: :cascade do |t|
@@ -107,6 +111,8 @@ ActiveRecord::Schema.define(version: 2021_06_08_215223) do
     t.json "nutrition_facts"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_foods_on_discarded_at"
   end
 
   create_table "foods_recipes", id: false, charset: "latin1", force: :cascade do |t|
@@ -124,6 +130,8 @@ ActiveRecord::Schema.define(version: 2021_06_08_215223) do
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_nutrition_specifications_on_discarded_at"
     t.index ["food_id"], name: "index_nutrition_specifications_on_food_id"
     t.index ["recipe_id"], name: "index_nutrition_specifications_on_recipe_id"
   end
@@ -134,6 +142,8 @@ ActiveRecord::Schema.define(version: 2021_06_08_215223) do
     t.integer "country"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_nutritionists_on_discarded_at"
     t.index ["user_auth_id"], name: "index_nutritionists_on_user_auth_id"
   end
 
@@ -144,6 +154,8 @@ ActiveRecord::Schema.define(version: 2021_06_08_215223) do
     t.bigint "nutritionist_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_recipes_on_discarded_at"
     t.index ["nutritionist_id"], name: "index_recipes_on_nutritionist_id"
   end
 
@@ -164,6 +176,8 @@ ActiveRecord::Schema.define(version: 2021_06_08_215223) do
     t.integer "country"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_trainers_on_discarded_at"
     t.index ["user_auth_id"], name: "index_trainers_on_user_auth_id"
   end
 
@@ -175,6 +189,8 @@ ActiveRecord::Schema.define(version: 2021_06_08_215223) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_user_auths_on_discarded_at"
   end
 
   create_table "workout_plan_exercises", charset: "latin1", force: :cascade do |t|
@@ -199,7 +215,9 @@ ActiveRecord::Schema.define(version: 2021_06_08_215223) do
     t.string "name", null: false
     t.integer "level", default: 0
     t.boolean "requires_equipment", default: false
+    t.datetime "discarded_at"
     t.index ["client_id"], name: "index_workout_plans_on_client_id"
+    t.index ["discarded_at"], name: "index_workout_plans_on_discarded_at"
     t.index ["trainer_id"], name: "index_workout_plans_on_trainer_id"
   end
 

@@ -80,6 +80,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    discard (1.2.0)
+      activerecord (>= 4.2, < 7)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
@@ -233,6 +235,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   devise
+  discard
   dotenv-rails
   draper
   jbuilder

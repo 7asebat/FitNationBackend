@@ -35,7 +35,7 @@ class ExercisesController < ApplicationController
   end
 
   def destroy
-    @exercise.destroy
+    @exercise.discard!
     render status: :ok
   end
 
