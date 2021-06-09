@@ -19,7 +19,8 @@ class TrainersController < ApplicationController
   def delete
     ActiveRecord::Base.transaction do
       id = params[:id]
-      Trainer.discard!(id)
+      @trainer = Trainer.find(id)
+      @trainer.discard!
     end
   end
   
