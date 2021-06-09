@@ -2,6 +2,13 @@ class Client < ApplicationRecord
   include Discard::Model
   default_scope -> { kept }
 
+  after_discard do
+    user_auth.discard!
+  end
+
+  after_undiscard do
+    user_auth.undiscard
+  end
 
   has_one_attached :avatar
 
