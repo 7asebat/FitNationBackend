@@ -13,7 +13,7 @@ class TrainersController < ApplicationController
   end
 
   def index
-    @trainers = Trainer.where("name LIKE ?", "%#{params[:q]}%").all.decorate.as_json
+    @trainers = Trainer.where("LOWER(name) LIKE ?", "%#{params[:q]&.downcase}%").all.decorate.as_json
   end
 
   def delete
