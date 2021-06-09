@@ -7,7 +7,7 @@ class ClientsExerciseInstanceController < ApplicationController
     @client_exercise_instance = ClientsExerciseInstance.create!(client: @user,
                                                                 date: p[:date],
                                                                 performance: p[:performance],
-                                                                exercise_id: p[:exercise_id],
+                                                                exercise_id: p[:exercise_id].present? ? p[:exercise_id] : p[:workout_plan_exercise_id],
                                                                 workout_plan_exercise_id: p[:workout_plan_exercise_id],
                                                                 sets: p[:sets],
                                                                 reps: p[:reps],

@@ -10,7 +10,7 @@ class WorkoutPlanExerciseDecorator < Draper::Decorator
       sets: sets,
       reps: reps,
       order: order,
-      exercise: exercise.decorate.as_json
+      exercise: exercise&.decorate.as_json
     }
   end
 end

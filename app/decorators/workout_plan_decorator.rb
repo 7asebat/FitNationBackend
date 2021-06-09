@@ -11,7 +11,7 @@ class WorkoutPlanDecorator < Draper::Decorator
       name: name,
       level: level,
       requires_equipment: requires_equipment,
-      exercises_count: object&.workout_plan_exercises.count,
+      exercises_count: object&.workout_plan_exercises&.count,
       image: image.url
     }
   end
@@ -26,7 +26,7 @@ class WorkoutPlanDecorator < Draper::Decorator
       name: name,
       level: level,
       requires_equipment: requires_equipment,
-      exercise_instances: object&.workout_plan_exercises.decorate.as_json.group_by{ |u| u[:day] },
+      exercise_instances: object&.workout_plan_exercises&.decorate.as_json.group_by{ |u| u[:day] },
       image: image.url
     }
   end
@@ -38,7 +38,7 @@ class WorkoutPlanDecorator < Draper::Decorator
       name: name,
       level: level,
       requires_equipment: requires_equipment,
-      exercise_instances: object&.workout_plan_exercises.decorate.as_json.group_by{ |u| u[:day] },
+      exercise_instances: object&.workout_plan_exercises&.decorate.as_json.group_by{ |u| u[:day] },
       image: image.url
     }
   end
