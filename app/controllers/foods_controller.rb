@@ -31,7 +31,8 @@ class FoodsController < ApplicationController
   end
 
   def destroy
-      @food.destroy
+      FoodsRecipe.where(food: @food).delete_all
+      @food.destroy!
       render status: :ok
   end
 

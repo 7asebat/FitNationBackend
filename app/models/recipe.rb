@@ -6,5 +6,5 @@ class Recipe < ApplicationRecord
   has_many :nutrition_specifications, dependent: :destroy
   
   has_many :foods_recipes, dependent: :destroy
-  has_and_belongs_to_many :foods, through: :food_recipe
+  has_and_belongs_to_many :foods, through: :foods_recipes
 end

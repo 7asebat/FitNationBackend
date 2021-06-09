@@ -47,6 +47,7 @@ class RecipesController < ApplicationController
     if !validate_nutritionist_recipe(@recipe)
       render_unauthorized_error
     else
+      FoodsRecipe.where(recipe: @recipe).delete_all
       @recipe.destroy
       render json: { status: "success", message: "Recipe deleted successfully" }, status: :ok
     end
@@ -110,7 +111,7 @@ class RecipesController < ApplicationController
     foods = params.dig(:recipe, :foods)
 
     foods.each do |u|
-      FoodsRecipes.create!(recipe: @recipe, food_id: u[:id], quantity: u[:quantity])
+      FoodsRecipe.create!(recipe: @recipe, food_id: u[:id], quantity: u[:quantity])
   end 
     
   end
