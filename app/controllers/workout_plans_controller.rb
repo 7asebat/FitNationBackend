@@ -63,7 +63,7 @@ class WorkoutPlansController < ApplicationController
     @workout_plan = WorkoutPlan.find(params[:id])
     WorkoutPlanExercise.where(workout_plan: @workout_plan).delete_all
     Client.where(active_workout_plan: @workout_plan).update_all(active_workout_plan_id: nil)
-    @workout_plan.destroy!
+    @workout_plan.discard!
   end
 
   def me_index

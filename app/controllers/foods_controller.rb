@@ -31,7 +31,7 @@ class FoodsController < ApplicationController
   end
 
   def destroy
-      @food.destroy
+      @food.discard!
       render status: :ok
   end
 

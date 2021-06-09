@@ -17,7 +17,7 @@ class NutritionistsController < ApplicationController
   def delete
     ActiveRecord::Base.transaction do
       id = params[:id]
-      Nutritionist.destroy(id)
+      Nutritionist.discard!(id)
     end
   end
 

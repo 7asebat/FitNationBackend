@@ -17,7 +17,7 @@ class ClientsController < ApplicationController
   def delete
     ActiveRecord::Base.transaction do
       id = params[:id]
-      Client.destroy(id)
+      Client.discard!(id)
     end
   end
 

@@ -58,8 +58,8 @@ class ClientWeightNutritionsController < ApplicationController
   def destroy
     if @user.id == @client_w_n.client_id
       ActiveRecord::Base.transaction do
-        @client_w_n.nutrition_specifications.destroy
-        @client_w_n.destroy
+        @client_w_n.nutrition_specifications.discard!
+        @client_w_n.discard!
         render status: :ok
       end
     else

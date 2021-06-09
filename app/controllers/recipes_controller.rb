@@ -47,7 +47,7 @@ class RecipesController < ApplicationController
     if !validate_nutritionist_recipe(@recipe)
       render_unauthorized_error
     else
-      @recipe.destroy
+      @recipe.discard!
       render json: { status: "success", message: "Recipe deleted successfully" }, status: :ok
     end
   end

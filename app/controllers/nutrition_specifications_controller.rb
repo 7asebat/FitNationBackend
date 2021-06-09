@@ -43,7 +43,7 @@ class NutritionSpecificationsController < ApplicationController
     if (!validate_nutritionist_recipe(recipe))
       render_unauthorized_error
     else
-      @n_spec.destroy
+      @n_spec.discard!
       render json: { status: "success", message: "Nutrition specification deleted successfully" }, status: :ok
     end
   end
