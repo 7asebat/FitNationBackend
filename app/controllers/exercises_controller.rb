@@ -5,8 +5,8 @@ class ExercisesController < ApplicationController
   def index
     @limit, @page, @offset = pagination_params
 
-    @records = Exercise.limit(@limit).offset(@offset).all.decorate.as_json
-    @total = Exercise.all.count
+    @records = Exercise.where("LOWER(name) LIKE ?", "%#{params[:q]&.downcase}%").limit(@limit).offset(@offset).all.decorate.as_json
+    @total = Exercise.where("LOWER(name) LIKE ?", "%#{params[:q]&.downcase}%").all.count
     @count = @records.count
     render status: :ok
   end
