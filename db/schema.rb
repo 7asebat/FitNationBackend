@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_215223) do
+ActiveRecord::Schema.define(version: 2021_06_09_141816) do
 
   create_table "active_storage_attachments", charset: "latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -205,22 +205,22 @@ ActiveRecord::Schema.define(version: 2021_06_08_215223) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "admins", "user_auths"
-  add_foreign_key "clients", "user_auths"
-  add_foreign_key "clients", "workout_plans", column: "active_workout_plan_id"
-  add_foreign_key "clients_exercise_instances", "clients"
-  add_foreign_key "clients_exercise_instances", "exercises"
-  add_foreign_key "clients_exercise_instances", "workout_plan_exercises"
-  add_foreign_key "clients_weights_nutritions", "clients"
-  add_foreign_key "nutrition_specifications", "foods"
-  add_foreign_key "nutrition_specifications", "recipes"
-  add_foreign_key "nutritionists", "user_auths"
-  add_foreign_key "recipes", "nutritionists"
-  add_foreign_key "trainer_client_messages", "clients"
-  add_foreign_key "trainer_client_messages", "trainers"
-  add_foreign_key "trainers", "user_auths"
-  add_foreign_key "workout_plan_exercises", "exercises"
-  add_foreign_key "workout_plan_exercises", "workout_plans"
-  add_foreign_key "workout_plans", "clients"
-  add_foreign_key "workout_plans", "trainers"
+  add_foreign_key "admins", "user_auths", on_delete: :cascade
+  add_foreign_key "clients", "user_auths", on_delete: :cascade
+  add_foreign_key "clients", "workout_plans", column: "active_workout_plan_id", on_delete: :nullify
+  add_foreign_key "clients_exercise_instances", "clients", on_delete: :cascade
+  add_foreign_key "clients_exercise_instances", "exercises", on_delete: :cascade
+  add_foreign_key "clients_exercise_instances", "workout_plan_exercises", on_delete: :nullify
+  add_foreign_key "clients_weights_nutritions", "clients", on_delete: :cascade
+  add_foreign_key "nutrition_specifications", "foods", on_delete: :cascade
+  add_foreign_key "nutrition_specifications", "recipes", on_delete: :cascade
+  add_foreign_key "nutritionists", "user_auths", on_delete: :cascade
+  add_foreign_key "recipes", "nutritionists", on_delete: :cascade
+  add_foreign_key "trainer_client_messages", "clients", on_delete: :cascade
+  add_foreign_key "trainer_client_messages", "trainers", on_delete: :cascade
+  add_foreign_key "trainers", "user_auths", on_delete: :cascade
+  add_foreign_key "workout_plan_exercises", "exercises", on_delete: :cascade
+  add_foreign_key "workout_plan_exercises", "workout_plans", on_delete: :cascade
+  add_foreign_key "workout_plans", "clients", on_delete: :cascade
+  add_foreign_key "workout_plans", "trainers", on_delete: :cascade
 end
