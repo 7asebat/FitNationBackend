@@ -1,9 +1,9 @@
 class UserAuth < ApplicationRecord
   has_secure_password
-  has_one :admin
-  has_one :client
-  has_one :trainer
-  has_one :nutritionist
+  has_one :admin, dependent: :destroy
+  has_one :client, dependent: :destroy
+  has_one :trainer, dependent: :destroy
+  has_one :nutritionist, dependent: :destroy
   
   # Enums
   enum role: {client: 0, admin: 1, trainer: 2, nutritionist: 3}
